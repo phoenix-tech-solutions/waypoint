@@ -6,3 +6,6 @@ server/faiss_index
 
 # Env
 **/.env
+
+# Python
+server/venv
