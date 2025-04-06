@@ -1,10 +1,9 @@
 import json
-from langchain.text_splitter import TokenTextSplitter
 import tiktoken
+from langchain.text_splitter import TokenTextSplitter
 
 encoding = tiktoken.get_encoding("cl100k_base")
 
-# Function to count tokens in text
 def count_tokens(text: str) -> int:
     return len(encoding.encode(text))
 
@@ -28,18 +27,22 @@ def split_text_by_tokens(text: str, max_tokens: int = 2000):
     
     return chunks
 
-def chunk_text(json_data, max_tokens=10):
-    text_splitter = TokenTextSplitter(chunk_size=max_tokens, chunk_overlap=2)
-    
+def clean_text(text):
+    return text.strip()
+
+def chunk_text(json_data, max_tokens=2000):
     total_text = 0
     total_tokens = 0
     total_chunks = 0
-    
+    cleaned_json_data = []
+
     for item in json_data:
         cleaned_text = item.get('cleaned_text', [])
         
         if cleaned_text:
             full_text = " ".join(cleaned_text)
+            full_text = clean_text(full_text)
+            
             text_length = len(full_text)
             total_text += text_length
             
@@ -49,19 +52,20 @@ def chunk_text(json_data, max_tokens=10):
             chunks = split_text_by_tokens(full_text, max_tokens)
             total_chunks += len(chunks)
             
-            item['chunks'] = chunks
+            cleaned_json_data.append({
+                'chunks': chunks
+            })
             
-            print(f"Processing URL: {item['url']}")
-            print(f"  - Cleaned text length: {text_length} characters")
+            print(f"Processing: Cleaned text length: {text_length} characters")
             print(f"  - Token count before chunking: {text_tokens}")
-            print(f"  - Number of chunks: {len(chunks)}")
+            print(f"  - Number of chunks: {len(chunks)}\n")
     
     print("\n--- Chunking Summary ---")
     print(f"Total text length processed: {total_text} characters")
     print(f"Total tokens processed: {total_tokens}")
     print(f"Total number of chunks created: {total_chunks}")
     
-    return json_data
+    return cleaned_json_data
 
 input_file = 'cleaned_output.json'
 output_file = 'chunked_output.json'
