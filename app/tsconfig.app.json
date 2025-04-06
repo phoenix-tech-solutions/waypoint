@@ -24,7 +24,7 @@
     "noUncheckedSideEffectImports": true
   },
   "include": ["app/src", "eslint.config.js"],
-  "baseUrl": "./app",
+  "baseUrl": ".",
   "paths": {
     "@/*": ["./src/*"]
   }
