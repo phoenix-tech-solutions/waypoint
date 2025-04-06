@@ -54,7 +54,7 @@ const EventTimeline = ({ setActiveView }) => {
                           <DialogTrigger asChild>
                             <Button
                               variant="link"
-                              className="p-0 mt-2 text-blue-500"
+                              className="p-0 mt-2 text-orange-500"
                             >
                               View Details
                             </Button>

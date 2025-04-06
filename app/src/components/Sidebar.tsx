@@ -20,7 +20,7 @@ const Sidebar = ({ setActiveView }) => {
             onClick={() => setSidebarOpen(!isSidebarOpen)}
             className="absolute top-8 right-0 translate-x-1/2 p-2 bg-white text-gray-600 rounded-full 
                         shadow-md hover:shadow-lg border border-gray-200 hover:bg-gray-50
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 z-10"
+                        focus:outline-none focus:ring-2 focus:ring-orange-500 z-10"
             aria-label="Toggle Sidebar"
             >
             {isSidebarOpen ? (
@@ -38,7 +38,7 @@ const Sidebar = ({ setActiveView }) => {
                 <h1 className="text-2xl font-bold">John John</h1>
                 <Button
                     onClick={() => setActiveView("chat")}
-                    className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2 shadow-md hover:shadow-lg transition-shadow duration-200 text-left"
+                    className="mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2 shadow-md hover:shadow-lg transition-shadow duration-200 text-left"
                 >
                     <MessageSquare size={18} /> Chat with Birdie
                 </Button>

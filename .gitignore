@@ -2,7 +2,7 @@
 node_modules
 
 # Temporary local storage
-server/faiss_index
+**/faiss_index
 
 # Env
 **/.env

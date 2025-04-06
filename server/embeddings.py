@@ -1,1 +1,0 @@
-# We have the chunks, we can now create the embeddings and FAISS index for the chunks. Then, we store this in a vector database.

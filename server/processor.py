@@ -6,8 +6,6 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
-from huggingface_hub import login
-login(token=os.getenv("HF_TOKEN"))
 
 dotenv.load_dotenv()
 mistral_key = os.getenv("MISTRAL_API_KEY")
@@ -16,7 +14,7 @@ mistral_key = os.getenv("MISTRAL_API_KEY")
 faiss_index_path = "faiss_index"
 
 # Step 1: Load and parse the JSON file
-with open('../IA_data.json', 'r') as f:
+with open('./IA_data.json', 'r') as f:
     data = json.load(f)
 
 documents = []
@@ -43,26 +41,26 @@ embeddings = MistralAIEmbeddings()
 if os.path.exists(faiss_index_path):
     # Load the existing FAISS index
     vector_store = FAISS.load_local(faiss_index_path, embeddings, allow_dangerous_deserialization=True)
-    print("Loaded existing FAISS index from local storage.")
+    # print("Loaded existing FAISS index from local storage.")
 else:
     # Create a new FAISS index
     vector_store = FAISS.from_documents(docs, embeddings)
     vector_store.save_local(faiss_index_path)
-    print("Created new FAISS index and saved to local storage.")
+    # print("Created new FAISS index and saved to local storage.")
 
 # Step 3: Create a retriever from the vector store
 retriever = vector_store.as_retriever()
 
 # Initialize the Mistral AI chat model
-llm = ChatMistralAI(model="mistral-large-latest", temperature=0)
-print("Initialized Mistral AI chat model.")
+llm = ChatMistralAI(model="mistral-large-latest", temperature=0.2)
+# print("Initialized Mistral AI chat model.")
 
 # Step 4: Set up the RetrievalQA chain
 qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
-print("Created RetrievalQA chain.")
+# print("Created RetrievalQA chain.")
 
 # Step 5: Ask a question related to the school info system
-question = "hey. what is the pinnacle project?"
+question = input()
 answer = qa_chain.invoke(question)
-print("Answer:", answer['result'])
-print("Processing complete.")
+print(answer['result'])
+# print("Processing complete.")
