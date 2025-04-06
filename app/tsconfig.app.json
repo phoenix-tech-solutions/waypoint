@@ -23,8 +23,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src"],
-  "baseUrl": ".",
+  "include": ["app/src", "eslint.config.js"],
+  "baseUrl": "./app",
   "paths": {
     "@/*": ["./src/*"]
   }

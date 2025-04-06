@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Card } from "./components/ui/card";
+import { Card } from "./components/ui/card.tsx";
 import {
   ArrowLeft,
   ArrowUp,
@@ -8,7 +8,7 @@ import {
   Clock,
   MessageSquare,
 } from "lucide-react";
-import { Button } from "./components/ui/button";
+import { Button } from "./components/ui/button.tsx";
 import {
   Dialog,
   DialogContent,
@@ -16,8 +16,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./components/ui/dialog";
-import { cn } from "./lib/utils"; // Utility for combining class names
+} from "./components/ui/dialog.tsx";
+import { cn } from "./lib/utils.ts"; // Utility for combining class names
 import { events, staff, clubs } from "./tmp/data.ts";
 
 interface Club {
