@@ -42,7 +42,7 @@ interface Staff {
 }
 
 const ChatWithBirdie: React.FC = () => {
-  const [inputValue, setInputValue] = useState("When is the next engineering Flex Friday?");
+  const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -103,10 +103,16 @@ const ChatWithBirdie: React.FC = () => {
             ref={inputRef}
             value={inputValue}
             onChange={handleInputChange}
-            placeholder="Type your question..."
+            placeholder={[
+              "When is the next IT Flex Friday?",
+              "What is Pinnacle Project?",
+              "How do I join a club?",
+              "When is the next holiday?",
+              "Where is Northstar located?"
+              ][Math.floor((Date.now() / 3000) % 4)]}
             className="bg-gray-50 p-4 rounded-lg text-gray-400 resize-none
-                 border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
-                 w-full transition-all duration-200 shadow-sm pr-12"
+           border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 
+           w-full transition-all duration-200 shadow-sm pr-12"
             style={{
               minHeight: "3rem",
               maxHeight: "10rem",
