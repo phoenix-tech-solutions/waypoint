@@ -18,12 +18,34 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils"; // Utility for combining class names
+import { events, staff, clubs } from "./tmp/data.js";
 
-const ChatWithBirdie = ({ isSidebarOpen }) => {
+interface Club {
+  id: number;
+  name: string;
+  leader: string;
+  sponsor: string;
+  description: string;
+}
+
+interface Event {
+  id: number;
+  title: string;
+  date: string;
+  details: string;
+}
+
+interface Staff {
+  id: number;
+  name: string;
+  role: string;
+}
+
+const ChatWithBirdie: React.FC<{ isSidebarOpen: boolean }> = ({ isSidebarOpen }) => {
   const [inputValue, setInputValue] = useState("When is the next engineering Flex Friday?");
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
     const textarea = inputRef.current;
     if (textarea) {
@@ -66,17 +88,11 @@ const ChatWithBirdie = ({ isSidebarOpen }) => {
   );
 };
 
-
-import { events, staff, clubs } from "./tmp/data.js";
-
-export default function Dashboard() {
+const Dashboard: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [sidebarWidth, setSidebarWidth] = useState("1/5"); // Adjusted initial width
-  // activeView: 'chat' | 'staff' | 'clubs' | 'clubDetail' | 'events'
-  const [activeView, setActiveView] = useState("chat");
-  const [selectedClub, setSelectedClub] = useState(null);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
+  const [activeView, setActiveView] = useState<"chat" | "staff" | "clubs" | "clubDetail" | "events">("chat");
+  const [selectedClub, setSelectedClub] = useState<Club | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Update time every second
@@ -88,43 +104,38 @@ export default function Dashboard() {
   }, []);
 
   // Format time and date
-  const formattedTime = currentTime.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit'
+  const formattedTime = currentTime.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
   });
-  const formattedDate = currentTime.toLocaleDateString('en-US', {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric'
+  const formattedDate = currentTime.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
   });
-
-  useEffect(() => {
-    setSidebarWidth(isSidebarOpen ? "1/5" : "16");
-  }, [isSidebarOpen]);
 
   // Function to handle club card click
-  const handleClubClick = (club) => {
+  const handleClubClick = (club: Club) => {
     setSelectedClub(club);
     setActiveView("clubDetail");
   };
 
   // Function to handle event card click
-  const handleEventClick = (event) => {
+  const handleEventClick = (event: Event) => {
     setSelectedEvent(event);
   };
 
-  const upcomingEvents = events.filter((event) =>
+  const upcomingEvents = events.filter((event: Event) =>
     new Date(event.date) >= new Date()
   ).slice(0, 2);
 
   return (
     <div className="flex h-screen bg-gray-100 relative">
       {/* Left Sidebar */}
-
       <div className={`transition-all duration-300 bg-white shadow-lg ${
-        isSidebarOpen ? 'w-1/5' : 'w-10'
+        isSidebarOpen ? "w-64 md:w-80" : "w-16"
       } p-6 flex flex-col border-r border-gray-200 relative`}>
-        {/* Sidebar Toggle Button with Black/White Theme */}
+        {/* Sidebar Toggle Button */}
         <button
           onClick={() => setSidebarOpen(!isSidebarOpen)}
           className="absolute top-8 right-0 translate-x-1/2 p-2 bg-white text-gray-600 rounded-full 
@@ -196,9 +207,8 @@ export default function Dashboard() {
             </div>
           </div>
         )}
+      </div>
 
-        </div>
-    
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col bg-white relative">
         {/* Top-right time display */}
@@ -365,4 +375,6 @@ export default function Dashboard() {
       </div>
     </div>
   );
-}
+};
+
+export default Dashboard;
