@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Card } from "@/components/ui/card";
+import { Card } from "./components/ui/card";
 import {
   ArrowLeft,
   ArrowUp,
@@ -8,7 +8,7 @@ import {
   Clock,
   MessageSquare,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "./components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,12 +16,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { cn } from "@/lib/utils"; // Utility for combining class names
-import { events, staff, clubs } from "./tmp/data.js";
+} from "./components/ui/dialog";
+import { cn } from "./lib/utils"; // Utility for combining class names
+import { events, staff, clubs } from "./tmp/data.ts";
 
 interface Club {
-  id: number;
+  id: string;
   name: string;
   leader: string;
   sponsor: string;
@@ -36,12 +36,12 @@ interface Event {
 }
 
 interface Staff {
-  id: number;
+  id: string;
   name: string;
   role: string;
 }
 
-const ChatWithBirdie: React.FC<{ isSidebarOpen: boolean }> = ({ isSidebarOpen }) => {
+const ChatWithBirdie: React.FC = () => {
   const [inputValue, setInputValue] = useState("When is the next engineering Flex Friday?");
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -92,7 +92,6 @@ const Dashboard: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   const [activeView, setActiveView] = useState<"chat" | "staff" | "clubs" | "clubDetail" | "events">("chat");
   const [selectedClub, setSelectedClub] = useState<Club | null>(null);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
   // Update time every second
@@ -118,11 +117,6 @@ const Dashboard: React.FC = () => {
   const handleClubClick = (club: Club) => {
     setSelectedClub(club);
     setActiveView("clubDetail");
-  };
-
-  // Function to handle event card click
-  const handleEventClick = (event: Event) => {
-    setSelectedEvent(event);
   };
 
   const upcomingEvents = events.filter((event: Event) =>
@@ -223,7 +217,7 @@ const Dashboard: React.FC = () => {
         <div className="flex-1 overflow-auto p-6">
           {/* Conditional rendering based on activeView */}
           {activeView === "chat" && (
-            <ChatWithBirdie isSidebarOpen={isSidebarOpen} />
+            <ChatWithBirdie />
           )}
 
           {activeView === "staff" && (
@@ -240,7 +234,7 @@ const Dashboard: React.FC = () => {
               </h1>{" "}
               {/* Center heading */}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {staff.map((member) => (
+                {staff.map((member: Staff) => (
                   <Card
                     key={member.id}
                     className="p-4 transition transform hover:scale-105 shadow-md"

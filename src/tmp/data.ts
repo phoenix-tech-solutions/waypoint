@@ -90,10 +90,10 @@ export const staff = [
 
 // Sample data for Clubs Info
 export const clubs = [
-  { id: 'club1', name: 'Chess Club', leader: 'Alice Johnson', sponsor: 'Tech Innovations Inc.' },
-  { id: 'club2', name: 'Robotics Club', leader: 'Bob Smith', sponsor: 'Future Robotics' },
-  { id: 'club3', name: 'Art Club', leader: 'Carol Davis', sponsor: 'Creative Minds Co.' },
-  { id: 'club4', name: 'Drama Club', leader: 'David Lee', sponsor: 'StageCraft Productions' },
-  { id: 'club5', name: 'Science Club', leader: 'Emma Wilson', sponsor: 'Innovative Labs' },
-  { id: 'club6', name: 'Music Club', leader: 'Frank Thompson', sponsor: 'Harmony Music Group' }
+  { id: 'club1', name: 'Chess Club', leader: 'Alice Johnson', sponsor: 'Tech Innovations Inc.', description: 'Sharpen your strategic thinking with chess.' },
+  { id: 'club2', name: 'Robotics Club', leader: 'Bob Smith', sponsor: 'Future Robotics', description: 'Build and program robots to solve real-world problems.' },
+  { id: 'club3', name: 'Art Club', leader: 'Carol Davis', sponsor: 'Creative Minds Co.', description: 'Express your creativity through various art forms.' },
+  { id: 'club4', name: 'Drama Club', leader: 'David Lee', sponsor: 'StageCraft Productions', description: 'Explore acting, directing, and stage production.' },
+  { id: 'club5', name: 'Science Club', leader: 'Emma Wilson', sponsor: 'Innovative Labs', description: 'Dive into experiments and scientific discoveries.' },
+  { id: 'club6', name: 'Music Club', leader: 'Frank Thompson', sponsor: 'Harmony Music Group', description: 'Celebrate music through performance and collaboration.' }
 ];
