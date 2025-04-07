@@ -11,7 +11,11 @@ app.get('/api', (req, res) => {
 });
 
 app.post('/api/prompt', (req, res) => {
-    const pythonProcess = spawn(path.join("server", "venv", "bin", "python3"), [path.join("server", 'processor.py')]);
+    const pythonExecutable = process.platform === 'win32' 
+        ? path.join("server", "venv", "Scripts", "python.exe") 
+        : path.join("server", "venv", "bin", "python3");
+
+    const pythonProcess = spawn(pythonExecutable, [path.join("server", 'processor.py')]);
     
     let dataString = '';
 
