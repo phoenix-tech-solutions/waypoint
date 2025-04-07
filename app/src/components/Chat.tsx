@@ -2,6 +2,8 @@ import React, { useState, useRef, FormEvent, useEffect } from "react";
 import { ArrowUp, Bird } from "lucide-react";
 import showdown from "showdown";
 import { Button } from "./ui/button.tsx";
+import jsPDF from "jspdf";
+import toast, { Toaster } from "react-hot-toast";
 
 const ChatWithBirdie: React.FC = () => {
   const [inputValue, setInputValue] = useState("");
@@ -64,6 +66,43 @@ const ChatWithBirdie: React.FC = () => {
 
   const isEmpty = messages.length === 0;
 
+  const exportChatToPDF = () => {
+    const pdf = new jsPDF("p", "mm", "a4");
+    pdf.setFont("times", "normal");
+    pdf.setFontSize(12);
+
+    let yOffset = 10;
+    const lineHeight = 10;
+    const pageHeight = pdf.internal.pageSize.height;
+
+    messages.forEach((message) => {
+      const text = `${message.type === "user" ? "User" : "Birdie"}: ${
+        message.content
+      }`;
+      const textLines = pdf.splitTextToSize(text, 190);
+
+      textLines.forEach((line) => {
+        if (yOffset + lineHeight > pageHeight - 10) {
+          pdf.addPage();
+          yOffset = 10;
+        }
+
+        if (message.type === "user") {
+          pdf.setTextColor(227, 157, 18);
+        } else {
+          pdf.setTextColor(0, 0, 0);
+        }
+
+        pdf.text(line, 10, yOffset);
+        yOffset += lineHeight;
+      });
+    });
+
+    const timestamp = new Date().toLocaleString().replace(/[/,:\s]/g, "_").replace(/_/g, "-");
+    pdf.save(`chat_with_birdie_${timestamp}.pdf`);
+    toast.success("Chat saved as PDF!");
+  };
+
   return (
     <div className="w-full h-full max-w-7xl mx-auto flex flex-col px-4 pt-13 pb-3">
       {isEmpty ? (
@@ -117,7 +156,10 @@ const ChatWithBirdie: React.FC = () => {
         </div>
       ) : (
         <div className="flex flex-col flex-grow min-h-0">
-          <div className="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+          <div
+            id="chat-history"
+            className="flex-grow overflow-y-auto space-y-4 pr-2 custom-scrollbar"
+          >
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -194,6 +236,28 @@ const ChatWithBirdie: React.FC = () => {
           </form>
         </div>
       )}
+      {messages.length > 0 && (
+        <Button
+          onClick={exportChatToPDF}
+          className="fixed bottom-6 right-6 z-50 px-4 py-2 bg-orange-400 hover:bg-orange-500 text-white rounded-full shadow-lg transition-all duration-300"
+        >
+          Save Chat
+        </Button>
+      )}
+
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 4000,
+          style: {
+            background: "#4CAF50",
+            color: "#fff",
+            fontSize: "16px",
+            padding: "12px",
+            borderRadius: "8px",
+          },
+        }}
+      />
     </div>
   );
 };
