@@ -1,38 +1,77 @@
 <div align="center">
-    <img src="public/bird.svg" alt="Bird Logo">
+    <img src="public/bird.svg" alt="Bird Logo" height="120">
 </div>
 
 # Waypoint: Find your way at IA
 
 Waypoint is a project designed to enhance navigation and accessibility within the Innovation Academy ecosystem. It combines intuitive user interfaces with advanced retrieval-augmented generation (RAG) models to deliver seamless user experiences. Our goal is to provide accurate, context-aware assistance for users, ensuring they can find the information they need efficiently.
 
-## Key Features
-- **Chat Interface**: A responsive and user-friendly chat system for real-time assistance.
-- **RAG Model**: A robust pipeline for data ingestion, retrieval, and answer generation.
-- **Teacher, Staff, and Club Directories**: Comprehensive indexes to help users quickly find relevant personnel or organizations.
-- **Timeline**: A visual representation of events and milestones to keep users informed and organized.
-- **Accounts Feature**: A secure user accounts system to enable personalized experiences and support future expansions. We imagine several ways in which this project may continue, so keeping the system modular and scalable will allow for seamless integration of new features.
+---
 
-## Progress
+## ✨ Features
 
-#### UI
-- [x] Chat interface
-- [x] Sidebar
-- [x] Navigation bar
-- [ ] Settings page
-- [ ] Accounts page
+- 💬 **Smart Chat Interface** — Get real-time, context-aware answers through a friendly, responsive chat system.
+- 🧠 **RAG-Powered Intelligence** — Our pipeline combines document parsing, semantic search, and LLMs to provide accurate, concise responses.
+- 👥 **Staff & Club Directory** — Quickly look up teachers, staff, or clubs with ease.
+- 🗓️ **Timeline View** — Visualize upcoming events and milestones in a scrollable, dynamic layout.
+- 🔐 **User Accounts** — Personalized experience via secure account management, setting the stage for custom schedules, reminders, and more.
 
-#### RAG model
-- [x] Data ingestion pipeline
-- [x] Retrieval mechanism
-- [x] Answer generation
-- [ ] Fine-tuning for specific queries
+---
 
-#### Testing
-- [ ] Accounts feature
-- [ ] ???
+## 📅 Project Status
 
-#### Deployment
-- [x] Local environment
-- [ ] Staging environment
-- [ ] Production environment
+### 🖥 Frontend (React)
+
+| Feature         | Status         |
+|-----------------|----------------|
+| Chat interface  | ✅ Done         |
+| Sidebar         | ✅ Done         |
+| Navigation bar  | ✅ Done         |
+| Settings page   | ⏳ In Progress |
+| Accounts page   | ⏳ In Progress |
+
+### 🧠 Backend (Python + RAG)
+
+| Feature                 | Status         |
+|-------------------------|----------------|
+| Data ingestion pipeline | ✅ Done         |
+| Retrieval mechanism     | ✅ Done         |
+| Answer generation       | ✅ Done         |
+| Query fine-tuning       | ⏳ In Progress |
+
+### 🧪 Testing
+
+| Feature         | Status          |
+|-----------------|-----------------|
+| Accounts system | ⏳ Pending       |
+| End-to-end UX   | 🔜 To be defined |
+
+### ☁️ Deployment
+
+| Environment        | Status         |
+|--------------------|----------------|
+| Local Dev          | ✅ Done         |
+| Staging Server     | ⏳ In Progress |
+| Production Rollout | 🔜 Planned      |
+
+---
+
+## 🛠 Tech Stack
+
+- **Frontend**: React + TailwindCSS (or Bootstrap)
+- **Backend**: Python, FastAPI/Flask, FAISS
+- **LLM**: Mistral 7B via `llama.cpp`
+- **Embeddings**: SentenceTransformers
+- **Database**: SQLite / Supabase (depending on deployment)
+
+---
+
+## 🤝 Contributing
+
+This project is actively being developed by students at Innovation Academy. If you're interested in contributing or want to collaborate, feel free to open an issue or reach out!
+
+---
+
+## 📜 License
+
+This project is licensed under the [MIT License](LICENSE).
