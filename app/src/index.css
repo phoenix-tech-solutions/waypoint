@@ -3,6 +3,24 @@
 
 @custom-variant dark (&:is(.dark *));
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
