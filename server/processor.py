@@ -6,16 +6,24 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
+from langchain_google_genai import ChatGoogleGenerativeAI
+
 
 dotenv.load_dotenv()
-mistral_key = os.getenv("MISTRAL_API_KEY")
 
 faiss_index_path = "faiss_index"
+
+embeddings = MistralAIEmbeddings() # load MistralAI embeddings
+
+def documentify(record):
+    return Document(
+        page_content=record.get('text').strip(),
+        metadata={key: value for key, value in record.items() if key != 'text'}
+    )
 
 if os.path.exists(faiss_index_path):
     # if FAISS index exists, load it
     
-    embeddings = MistralAIEmbeddings()
     vector_store = FAISS.load_local(faiss_index_path, embeddings, allow_dangerous_deserialization=True)
 else:
     # if FAISS index does not exist, create it
@@ -23,14 +31,13 @@ else:
     with open('../IA_data.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    documents = []
-    for record in data:
-        content = (record.get('text') or '').strip()
-        if not content:
-            continue
-        metadata = {key: value for key, value in record.items() if key != 'text'}
-        documents.append(Document(page_content=content, metadata=metadata))
-
+    records = filter(lambda record: record.get('text'), data) # filter out records without text
+    
+    documents = list(map(
+        documentify,
+        records
+    ))
+    
     if not documents:
         raise ValueError("No documents found with valid content. Check your JSON file structure.")
 
@@ -40,13 +47,15 @@ else:
     if not docs:
         raise ValueError("No text chunks were created after splitting. Verify your data and splitter settings.")
 
-    embeddings = MistralAIEmbeddings()
-    vector_store = FAISS.from_documents(docs, embeddings)
-    vector_store.save_local(faiss_index_path)
+    vector_store = FAISS.from_documents(docs, embeddings) # create FAISS index from documents
+    
+    vector_store.save_local(faiss_index_path) # save it so next time we can load it directly
 
+# create a retriever from the vector store
 retriever = vector_store.as_retriever()
 
-llm = ChatMistralAI(model="mistral-large-latest", temperature=0.2)
+# instantiate a connection to a Gemini 1.5 Pro model
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro", temperature=0.2)
 
 qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
