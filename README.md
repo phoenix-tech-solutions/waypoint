@@ -59,8 +59,8 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 ## 🛠 Tech Stack
 
 - **Frontend**: React + TailwindCSS (or Bootstrap)
-- **Backend**: Python, FastAPI/Flask, FAISS
-- **LLM**: Mistral 7B via `llama.cpp`
+- **Backend**: Node.js, Express, FAISS
+- **LLM**: Gemini 2.0 Flash (via API)
 - **Embeddings**: SentenceTransformers
 - **Database**: SQLite / Supabase (depending on deployment)
 
