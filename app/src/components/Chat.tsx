@@ -107,7 +107,7 @@ const ChatWithBirdie: React.FC = () => {
     <div className="w-full h-full max-w mx-auto flex flex-col px-4 pt-13 pb-2">
       {isEmpty ? (
         <div className="flex flex-col justify-center items-center flex-grow text-center">
-          <h1 className="text-3xl font-bold mb-2">Chat with Birdie</h1>
+          <h1 className="text-3xl font-bold mb-2">Chat with <span className="text-orange-500">Birdie</span></h1>
           <p className="text-gray-500 mb-8">
             Ask anything about Innovation Academy...
           </p>
