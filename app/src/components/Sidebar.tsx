@@ -3,8 +3,6 @@ import { ChevronLeft, ChevronRight, MessageSquare } from "lucide-react";
 import { Button } from "./ui/button.tsx";
 import { events } from "../tmp/data.ts";
 
-
-
 const Sidebar = ({ setActiveView }) => {
     const [isSidebarOpen, setSidebarOpen] = useState(true);
     const upcomingEvents = events.filter((event) =>
@@ -20,7 +18,7 @@ const Sidebar = ({ setActiveView }) => {
             onClick={() => setSidebarOpen(!isSidebarOpen)}
             className="absolute top-8 right-0 translate-x-1/2 p-2 bg-white text-gray-600 rounded-full 
                         shadow-md hover:shadow-lg border border-gray-200 hover:bg-gray-50
-                        focus:outline-none focus:ring-2 focus:ring-orange-500 z-10"
+                        focus:outline-none focus:ring-2 focus:ring-orange-500 z-10 cursor-pointer"
             aria-label="Toggle Sidebar"
             >
             {isSidebarOpen ? (
@@ -38,7 +36,7 @@ const Sidebar = ({ setActiveView }) => {
                 <h1 className="text-2xl font-bold">John John</h1>
                 <Button
                     onClick={() => setActiveView("chat")}
-                    className="mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2 shadow-md hover:shadow-lg transition-shadow duration-200 text-left"
+                    className="mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2 shadow-md hover:shadow-lg transition-shadow duration-200 text-left cursor-pointer"
                 >
                     <MessageSquare size={18} /> Chat with Birdie
                 </Button>
@@ -50,21 +48,21 @@ const Sidebar = ({ setActiveView }) => {
                     <Button
                         variant="ghost"
                         onClick={() => setActiveView("staff")}
-                        className="w-full justify-start text-left hover:bg-gray-200 rounded"
+                        className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer"
                     >
                         Staff Directory
                     </Button>
                     <Button
                         variant="ghost"
                         onClick={() => setActiveView("clubs")}
-                        className="w-full justify-start text-left hover:bg-gray-200 rounded"
+                        className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer"
                     >
                         Clubs Info
                     </Button>
                     <Button
                         variant="ghost"
                         onClick={() => setActiveView("events")}
-                        className="w-full justify-start text-left hover:bg-gray-200 rounded"
+                        className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer"
                     >
                         Events
                     </Button>

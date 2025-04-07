@@ -14,7 +14,7 @@ mistral_key = os.getenv("MISTRAL_API_KEY")
 faiss_index_path = "faiss_index"
 
 # Step 1: Load and parse the JSON file
-with open('./IA_data.json', 'r', encoding='utf-8') as f:
+with open('../IA_data.json', 'r', encoding='utf-8') as f:
     data = json.load(f)
 
 documents = []

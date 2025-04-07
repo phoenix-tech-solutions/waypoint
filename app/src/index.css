@@ -20,6 +20,15 @@
   display: none;
 }
 
+::-moz-selection {
+  color: black;
+  background: #fca160;
+}
+
+::selection {
+  color: black;
+  background: #fca160;
+}
 
 :root {
   --radius: 0.625rem;

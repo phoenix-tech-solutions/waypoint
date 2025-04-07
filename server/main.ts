@@ -3,7 +3,7 @@ import { spawn } from 'child_process';
 import path from 'path';
 
 const app = express();
-app.use(express.json()); // Middleware to parse JSON request bodies
+app.use(express.json());
 const PORT = 8000;
 
 app.get('/api', (req, res) => {
@@ -20,7 +20,6 @@ app.post('/api/prompt', (req, res) => {
     
     let dataString = '';
 
-    // Write input to Python process
     pythonProcess.stdin.write(req.body.prompt + '\n');
     pythonProcess.stdin.end();
 

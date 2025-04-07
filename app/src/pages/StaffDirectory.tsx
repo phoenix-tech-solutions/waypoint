@@ -14,7 +14,7 @@ const StaffDirectory = ({ setActiveView }) => {
         {/* Center the content */}
         <button
           onClick={() => setActiveView("chat")}
-          className="flex items-center mb-4 text-gray-700 hover:underline"
+          className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer"
         >
           <ArrowLeft size={16} className="mr-1" /> Back
         </button>

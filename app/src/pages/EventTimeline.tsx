@@ -2,7 +2,7 @@ import React from "react";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "../components/ui/button.tsx";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "../components/ui/dialog.tsx";
-import { cn } from "../lib/utils.ts"; // Utility for combining class names
+import { cn } from "../lib/utils.ts";
 import { events } from "../tmp/data.ts";
 
 interface Event {
@@ -18,7 +18,7 @@ const EventTimeline = ({ setActiveView }) => {
               {/* Center the content */}
               <button
                 onClick={() => setActiveView("chat")}
-                className="flex items-center mb-4 text-gray-700 hover:underline"
+                className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer"
               >
                 <ArrowLeft size={16} className="mr-1" /> Back
               </button>
@@ -37,7 +37,6 @@ const EventTimeline = ({ setActiveView }) => {
                       ? "md:mr-auto text-right md:ml-8" // Add left margin for left cards
                       : "md:ml-auto text-left md:mr-8", // Add right margin for right cards
                     "mb-8 relative",
-                    "cursor-pointer",
                     "bg-white hover:bg-gray-50 flex flex-col items-start border",
                     isLeft ? "items-end" : "items-start",
                     "border-gray-200 shadow-sm",
@@ -54,7 +53,7 @@ const EventTimeline = ({ setActiveView }) => {
                           <DialogTrigger asChild>
                             <Button
                               variant="link"
-                              className="p-0 mt-2 text-orange-500"
+                              className="p-0 mt-2 text-orange-500 cursor-pointer"
                             >
                               View Details
                             </Button>
