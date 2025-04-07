@@ -4,7 +4,7 @@
 
 # Waypoint: Find your way at IA
 
-Waypoint is a project designed to enhance navigation and accessibility within the IA ecosystem. It combines intuitive user interfaces with advanced retrieval-augmented generation (RAG) models to deliver seamless user experiences. Our goal is to provide accurate, context-aware assistance for users, ensuring they can find the information they need efficiently.
+Waypoint is a project designed to enhance navigation and accessibility within the Innovation Academy ecosystem. It combines intuitive user interfaces with advanced retrieval-augmented generation (RAG) models to deliver seamless user experiences. Our goal is to provide accurate, context-aware assistance for users, ensuring they can find the information they need efficiently.
 
 ## Key Features
 - **Chat Interface**: A responsive and user-friendly chat system for real-time assistance.
