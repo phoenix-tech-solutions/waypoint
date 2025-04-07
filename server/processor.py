@@ -14,7 +14,7 @@ mistral_key = os.getenv("MISTRAL_API_KEY")
 faiss_index_path = "faiss_index"
 
 # Step 1: Load and parse the JSON file
-with open('./IA_data.json', 'r') as f:
+with open('../IA_data.json', 'r') as f:
     data = json.load(f)
 
 documents = []
@@ -41,12 +41,10 @@ embeddings = MistralAIEmbeddings()
 if os.path.exists(faiss_index_path):
     # Load the existing FAISS index
     vector_store = FAISS.load_local(faiss_index_path, embeddings, allow_dangerous_deserialization=True)
-    # print("Loaded existing FAISS index from local storage.")
 else:
     # Create a new FAISS index
     vector_store = FAISS.from_documents(docs, embeddings)
     vector_store.save_local(faiss_index_path)
-    # print("Created new FAISS index and saved to local storage.")
 
 # Step 3: Create a retriever from the vector store
 retriever = vector_store.as_retriever()

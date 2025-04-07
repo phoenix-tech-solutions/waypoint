@@ -11,11 +11,13 @@ app.get('/api', (req, res) => {
 });
 
 app.post('/api/prompt', (req, res) => {
-    const pythonExecutable = process.platform === 'win32' 
-        ? path.join("server", "venv", "Scripts", "python.exe") 
-        : path.join("server", "venv", "bin", "python3");
+    process.chdir('server');
 
-    const pythonProcess = spawn(pythonExecutable, [path.join("server", 'processor.py')]);
+    const pythonExecutable = process.platform === 'win32' 
+        ? path.join("venv", "Scripts", "python.exe") 
+        : path.join("venv", "bin", "python3");
+
+    const pythonProcess = spawn(pythonExecutable, ['processor.py']);
     
     let dataString = '';
 
@@ -32,11 +34,12 @@ app.post('/api/prompt', (req, res) => {
     });
 
     pythonProcess.on('close', (code) => {
+        
         if (code !== 0) {
             return res.status(500).json({ error: 'Python script failed' });
         }
         res.json({
-            query: req.body.prompt, // echo back the input
+            query: req.body.prompt,
             message: dataString
         });
     });
