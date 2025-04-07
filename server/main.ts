@@ -10,9 +10,8 @@ app.get('/api', (req, res) => {
     res.send('Hello, World!');
 });
 
+process.chdir('server');
 app.post('/api/prompt', (req, res) => {
-    process.chdir('server');
-
     const pythonExecutable = process.platform === 'win32' 
         ? path.join("venv", "Scripts", "python.exe") 
         : path.join("venv", "bin", "python3");
