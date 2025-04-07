@@ -3,6 +3,22 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes fadeInSmooth {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeInSmooth 0.4s ease-out;
+}
+
+
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
