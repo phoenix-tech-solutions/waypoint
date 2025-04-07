@@ -15,7 +15,6 @@ interface Event {
 const EventTimeline = ({ setActiveView }) => {
     return (
         <div className="w-full max-w-4xl mx-auto">
-              {/* Center the content */}
               <button
                 onClick={() => setActiveView("chat")}
                 className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer"
@@ -26,7 +25,6 @@ const EventTimeline = ({ setActiveView }) => {
                 Upcoming Events
               </h1>
               <div className="relative">
-                {/* Vertical Timeline Line */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 bg-gray-300 w-1 h-full">
                 </div>
                 {events.map((event: Event, index) => {
@@ -34,8 +32,8 @@ const EventTimeline = ({ setActiveView }) => {
                   const cardClasses = cn(
                     "p-4 rounded-lg shadow-md transition-transform duration-300 hover:scale-105 w-full md:w-1/2",
                     isLeft
-                      ? "md:mr-auto text-right md:ml-8" // Add left margin for left cards
-                      : "md:ml-auto text-left md:mr-8", // Add right margin for right cards
+                      ? "md:mr-auto text-right md:ml-8"
+                      : "md:ml-auto text-left md:mr-8",
                     "mb-8 relative",
                     "bg-white hover:bg-gray-50 flex flex-col items-start border",
                     isLeft ? "items-end" : "items-start",

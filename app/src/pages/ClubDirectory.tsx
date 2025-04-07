@@ -11,7 +11,7 @@ interface Club {
     description: string;
 }
 
-type ClubView = null | Club; // You can view either a club in detail or a list of clubs. Using `null` is probably bad semantics here.
+type ClubView = null | Club;
 
 const ClubDirectory = ({ setActiveView }) => {
     const [selectedClub, setSelectedClub] = useState<ClubView>(null);
@@ -23,7 +23,6 @@ const ClubDirectory = ({ setActiveView }) => {
 
     return (
         <div className="w-full max-w-4xl mx-auto">
-            {/* Center the content */}
             {!selectedClub && (<>
                 <button
                 onClick={() => setActiveView("chat")}
@@ -34,7 +33,6 @@ const ClubDirectory = ({ setActiveView }) => {
                 <h1 className="text-3xl font-bold mb-4 text-center">
                 Clubs Info
                 </h1>{" "}
-                {/* Center heading */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {clubs.map((club) => (
                         <Card
@@ -52,7 +50,6 @@ const ClubDirectory = ({ setActiveView }) => {
 
             {selectedClub && (
                 <div className="w-full max-w-2xl mx-auto">
-                    {/* Center the content */}
                     <button
                     onClick={() => setSelectedClub(null)}
                     className="flex items-center mb-4 text-gray-700 hover:underline"

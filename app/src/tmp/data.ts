@@ -76,9 +76,8 @@ export const events = [
     details: "Celebrate our graduating class!",
     year: 2026,
   },
-].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); // Sort events by date
+].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
-// Sample data for Staff Directory
 export const staff = [
   { id: 'staff1', name: 'Alice Johnson', role: 'Chief Executive Officer' },
   { id: 'staff2', name: 'Bob Smith', role: 'Chief Technology Officer' },
@@ -88,7 +87,6 @@ export const staff = [
   { id: 'staff6', name: 'Frank Thompson', role: 'UX Designer' }
 ];
 
-// Sample data for Clubs Info
 export const clubs = [
   { id: 'club1', name: 'Chess Club', leader: 'Alice Johnson', sponsor: 'Tech Innovations Inc.', description: 'Sharpen your strategic thinking with chess.' },
   { id: 'club2', name: 'Robotics Club', leader: 'Bob Smith', sponsor: 'Future Robotics', description: 'Build and program robots to solve real-world problems.' },

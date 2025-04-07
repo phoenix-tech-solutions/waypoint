@@ -13,7 +13,6 @@ const Sidebar = ({ setActiveView }) => {
         <div className={`transition-all duration-300 bg-white shadow-lg ${
             isSidebarOpen ? "w-64 md:w-80" : "w-16"
         } p-6 flex flex-col border-r border-gray-200 relative`}>
-            {/* Sidebar Toggle Button */}
             <button
             onClick={() => setSidebarOpen(!isSidebarOpen)}
             className="absolute top-8 right-0 translate-x-1/2 p-2 bg-white text-gray-600 rounded-full 
@@ -30,7 +29,6 @@ const Sidebar = ({ setActiveView }) => {
 
             {isSidebarOpen && (
             <div className="flex flex-col h-full">
-                {/* Main Content */}
                 <div className="flex-grow pt-8">
                 <h2 className="text-lg text-gray-500">Welcome,</h2>
                 <h1 className="text-2xl font-bold">John John</h1>
@@ -41,7 +39,6 @@ const Sidebar = ({ setActiveView }) => {
                     <MessageSquare size={18} /> Chat with Birdie
                 </Button>
 
-                {/* Additional Navigation */}
                 <div className="mt-6">
                     <h3 className="font-semibold text-lg">Explore</h3>
                     <div className="mt-3 space-y-2 flex flex-col">
@@ -70,7 +67,6 @@ const Sidebar = ({ setActiveView }) => {
                 </div>
                 </div>
 
-                {/* Upcoming Events Section */}
                 <div>
                 <h3 className="font-semibold text-lg mb-3">Upcoming Events</h3>
                 {upcomingEvents.map((event) => (

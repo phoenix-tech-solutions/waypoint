@@ -11,7 +11,6 @@ interface Staff {
 
 const StaffDirectory = ({ setActiveView }) => {
     return (<div className="w-full max-w-4xl mx-auto">
-        {/* Center the content */}
         <button
           onClick={() => setActiveView("chat")}
           className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer"
@@ -21,7 +20,6 @@ const StaffDirectory = ({ setActiveView }) => {
         <h1 className="text-3xl font-bold mb-4 text-center">
           Staff Directory
         </h1>{" "}
-        {/* Center heading */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {staff.map((member: Staff) => (
             <Card
