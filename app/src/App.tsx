@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Clock } from "lucide-react";
-import ChatWithBirdie from "./components/chat.tsx";
-import Sidebar from "./components/sidebar.tsx";
+import ChatWithBirdie from "./components/Chat.tsx";
+import Sidebar from "./components/Sidebar.tsx";
 import StaffDirectory from "./pages/StaffDirectory.tsx";
 import ClubDirectory from "./pages/ClubDirectory.tsx";
 import EventTimeline from "./pages/EventTimeline.tsx";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Dashboard: React.FC = () => {
-  const [activeView, setActiveView] = useState<"chat" | "staff" | "clubs" | "clubDetail" | "events">("chat");
+  const [activeView, setActiveView] = useState<
+    "chat" | "staff" | "clubs" | "events"
+  >("chat");
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -34,7 +36,7 @@ const Dashboard: React.FC = () => {
       <Sidebar setActiveView={setActiveView} />
 
       <div className="flex-1 flex flex-col bg-white relative">
-        <div className="absolute top-4 right-6 flex items-center space-x-3 text-gray-700 z-10">
+        <div className="absolute top-4 right-6 flex items-center space-x-3 text-gray-700 z-10 hidden md:flex">
           <div>
             <div className="font-bold text-lg text-right">{formattedTime}</div>
             <div className="text-sm text-gray-500">{formattedDate}</div>
