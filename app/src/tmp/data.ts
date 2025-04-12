@@ -79,12 +79,13 @@ export const events = [
 ].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
 export const staff = [
-  { id: 'staff1', name: 'Alice Johnson', role: 'Chief Executive Officer' },
-  { id: 'staff2', name: 'Bob Smith', role: 'Chief Technology Officer' },
-  { id: 'staff3', name: 'Carol Davis', role: 'Chief Financial Officer' },
-  { id: 'staff4', name: 'David Lee', role: 'Lead Developer' },
-  { id: 'staff5', name: 'Emma Wilson', role: 'Product Manager' },
-  { id: 'staff6', name: 'Frank Thompson', role: 'UX Designer' }
+  { id: "1", name: "John Doe", role: "Principal" },
+  { id: "2", name: "Jane Smith", role: "Assistant Principal" },
+  { id: "3", name: "Alice Johnson", role: "Math Teacher" },
+  { id: "4", name: "Bob Brown", role: "Science Teacher" },
+  { id: "5", name: "Emily Davis", role: "English Teacher" },
+  // ... Add all 117 staff members here in the same format ...
+  { id: "117", name: "Chris Wilson", role: "Custodian" },
 ];
 
 export const clubs = [

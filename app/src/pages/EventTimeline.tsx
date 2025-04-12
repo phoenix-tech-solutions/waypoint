@@ -18,7 +18,7 @@ interface EventTimelineProps {
 
 const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
     return (
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8"> {/* Updated top padding */}
               <button
                 onClick={() => setActiveView("chat")}
                 className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer"

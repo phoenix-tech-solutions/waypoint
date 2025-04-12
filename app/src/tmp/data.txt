@@ -1,0 +1,722 @@
+<div class="fsConstituentColumnLayout_3 fsStyleAutoclear">
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				James Seals 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-9051-directory"><a href="mailto:sealsje@fultonschools.org" title="Email">sealsje@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Stephen Seymour 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-CTAE
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-9191-directory"><a href="mailto:seymoursg@fultonschools.org" title="Email">seymoursg@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Bev Shiotelis 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    High Instructional Parapr
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-11070-directory"><a href="mailto:Shiotelis@fultonschools.org" title="Email">Shiotelis@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Caroline Smead 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-2124-directory"><a href="mailto:smeadc1@fultonschools.org" title="Email">smeadc1@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Nicolas Spoerer 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-7277-directory"><a href="mailto:spoerern@fultonschools.org" title="Email">spoerern@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Dania Taha 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-6375-directory"><a href="mailto:tahad@fultonschools.org" title="Email">tahad@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Laura Taylor 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-12938-directory"><a href="mailto:TaylorLS@fultonschools.org" title="Email">TaylorLS@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Margoth Trejos 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Building Custodian I-Second
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-1870-directory"><a href="mailto:trejosm@fultonschools.org" title="Email">trejosm@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Lauren Turner 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-InterRelated
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-2683-directory"><a href="mailto:turnerl2@fultonschools.org" title="Email">turnerl2@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Deanna Velazquez 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-13092-directory"><a href="mailto:VelazquezD@fultonschools.org" title="Email">VelazquezD@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Antonio Wade 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-CTI SPED
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-16233-directory"><a href="mailto:wadea@fultonschools.org" title="Email">wadea@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Bryan Wallace 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-15591-directory"><a href="mailto:wallacebr@fultonschools.org" title="Email">wallacebr@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Patrick Weigand 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-15654-directory"><a href="mailto:Weigand@fultonschools.org" title="Email">Weigand@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Avery White 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-Admin Assistant
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-16436-directory"><a href="mailto:whitea10@fultonschools.org" title="Email">whitea10@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Pamela Whitlock 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-CTAE
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-14703-directory"><a href="mailto:whitlock@fultonschools.org" title="Email">whitlock@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Graham Widmann 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-CTAE
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-6372-directory"><a href="mailto:widmanng@fultonschools.org" title="Email">widmanng@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Kiara Willis 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    Teacher-High School
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-9060-directory"><a href="mailto:williskr@fultonschools.org" title="Email">williskr@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+			
+
+	<div class="fsConstituentItem">
+
+		<h3 class="fsFullName">
+				Casie Zahirsky 
+		</h3>
+
+
+
+
+			<div class="fsTitles">
+	    <strong>Title:</strong>
+    MS/HS Professional Assistant II
+</div>
+
+
+
+
+
+
+
+
+			<div class="fsEmail">
+				<strong>Email: </strong>
+				<div id="fsEmail-217019-7525-directory"><a href="mailto:zahirskyc@fultonschools.org" title="Email">zahirskyc@fultonschools.org</a></div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+	</div>
+
+	</div>

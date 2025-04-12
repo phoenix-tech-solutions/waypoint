@@ -26,7 +26,7 @@ const ClubDirectory = ({ setActiveView }: ClubDirectoryProps) => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto">
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8"> {/* Ensure consistent top padding */}
             {!selectedClub && (<>
                 <button
                 onClick={() => setActiveView("chat")}
