@@ -91,7 +91,7 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
   }, {} as typeof groupedStaff);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8"> {/* Updated top padding */}
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8">
       <div className="sticky top-2 z-10 mb-4">
         <button
           onClick={() => setActiveView("chat")}
@@ -102,7 +102,6 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
         </button>
       </div>
 
-      {/* Updated title style */}
       <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
         <span className="flex items-center justify-center gap-2">
           <Briefcase size={28} />
@@ -110,7 +109,6 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
         </span>
       </h1>
 
-      {/* Responsive search + filter row */}
       <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <input
           type="text"
@@ -133,7 +131,6 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
         </select>
       </div>
 
-      {/* Responsive 1-col stack on mobile, 2-col on md+ */}
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {Object.entries(filteredStaff).map(([category, members]) => (
