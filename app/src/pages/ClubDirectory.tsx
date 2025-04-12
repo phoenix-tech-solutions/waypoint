@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card } from "../components/ui/card.tsx";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Users } from "lucide-react";
 import { clubs } from "../tmp/data.ts";
 
 interface Club {
@@ -13,7 +13,11 @@ interface Club {
 
 type ClubView = null | Club;
 
-const ClubDirectory = ({ setActiveView }) => {
+interface ClubDirectoryProps {
+  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
+}
+
+const ClubDirectory = ({ setActiveView }: ClubDirectoryProps) => {
     const [selectedClub, setSelectedClub] = useState<ClubView>(null);
 
 
@@ -30,8 +34,8 @@ const ClubDirectory = ({ setActiveView }) => {
                 >
                 <ArrowLeft size={16} className="mr-1" /> Back
                 </button>
-                <h1 className="text-3xl font-bold mb-4 text-center">
-                Clubs Info
+                <h1 className="text-3xl font-bold mb-4 text-center flex items-center justify-center gap-2">
+                  <Users size={24} /> Clubs Info
                 </h1>{" "}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {clubs.map((club) => (

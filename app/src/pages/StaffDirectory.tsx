@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Briefcase } from "lucide-react";
 import { Card } from "../components/ui/card.tsx";
 import { staff } from "../tmp/data.ts";
 
@@ -9,7 +9,11 @@ interface Staff {
   role: string;
 }
 
-const StaffDirectory = ({ setActiveView }) => {
+interface StaffDirectoryProps {
+  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
+}
+
+const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
     return (<div className="w-full max-w-4xl mx-auto">
         <button
           onClick={() => setActiveView("chat")}
@@ -17,8 +21,8 @@ const StaffDirectory = ({ setActiveView }) => {
         >
           <ArrowLeft size={16} className="mr-1" /> Back
         </button>
-        <h1 className="text-3xl font-bold mb-4 text-center">
-          Staff Directory
+        <h1 className="text-3xl font-bold mb-4 text-center flex items-center justify-center gap-2">
+          <Briefcase size={24} /> Staff Directory
         </h1>{" "}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {staff.map((member: Staff) => (

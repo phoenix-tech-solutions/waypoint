@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, MessageSquare } from "lucide-react";
+import { ChevronLeft, ChevronRight, MessageSquare, Briefcase, Users, Calendar, Settings } from "lucide-react";
 import { Button } from "./ui/button.tsx";
 import { events } from "../tmp/data.ts";
 
 interface SidebarProps {
-  setActiveView: (view: "chat" | "staff" | "clubs" | "events") => void;
+  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
 }
 
 const Sidebar = ({ setActiveView }: SidebarProps) => {
@@ -47,23 +47,23 @@ const Sidebar = ({ setActiveView }: SidebarProps) => {
                 <Button
                   variant="ghost"
                   onClick={() => setActiveView("staff")}
-                  className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer"
+                  className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer flex items-center gap-2"
                 >
-                  Staff Directory
+                  <Briefcase size={18} /> Staff Directory
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => setActiveView("clubs")}
-                  className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer"
+                  className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer flex items-center gap-2"
                 >
-                  Clubs Info
+                  <Users size={18} /> Clubs Info
                 </Button>
                 <Button
                   variant="ghost"
                   onClick={() => setActiveView("events")}
-                  className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer"
+                  className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer flex items-center gap-2"
                 >
-                  Events
+                  <Calendar size={18} /> Events
                 </Button>
               </div>
             </div>
@@ -80,6 +80,16 @@ const Sidebar = ({ setActiveView }: SidebarProps) => {
                 <p className="text-xs text-gray-500">{event.date}</p>
               </div>
             ))}
+          </div>
+
+          <div className="border-t border-gray-200 mt-4 pt-4">
+            <Button
+              variant="ghost"
+              onClick={() => setActiveView("settings")}
+              className="w-full justify-start text-left hover:bg-gray-200 rounded cursor-pointer flex items-center gap-2"
+            >
+              <Settings size={18} /> Settings
+            </Button>
           </div>
         </div>
       )}

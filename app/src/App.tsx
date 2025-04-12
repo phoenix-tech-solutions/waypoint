@@ -6,10 +6,11 @@ import StaffDirectory from "./pages/StaffDirectory.tsx";
 import ClubDirectory from "./pages/ClubDirectory.tsx";
 import EventTimeline from "./pages/EventTimeline.tsx";
 import { AnimatePresence, motion } from "framer-motion";
+import SettingsPage from "./pages/SettingsPage.tsx"; // Import the new settings page
 
 const Dashboard: React.FC = () => {
   const [activeView, setActiveView] = useState<
-    "chat" | "staff" | "clubs" | "events"
+    "chat" | "staff" | "clubs" | "events" | "settings"
   >("chat");
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -95,6 +96,19 @@ const Dashboard: React.FC = () => {
                 className="absolute inset-0 pt-5"
               >
                 <EventTimeline setActiveView={setActiveView} />
+              </motion.div>
+            )}
+
+            {activeView === "settings" && (
+              <motion.div
+                key="settings"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-0 pt-5"
+              >
+                <SettingsPage />
               </motion.div>
             )}
           </AnimatePresence>

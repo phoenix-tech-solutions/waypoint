@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Calendar } from "lucide-react";
 import { Button } from "../components/ui/button.tsx";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "../components/ui/dialog.tsx";
 import { cn } from "../lib/utils.ts";
@@ -12,7 +12,11 @@ interface Event {
     details: string;
 }
 
-const EventTimeline = ({ setActiveView }) => {
+interface EventTimelineProps {
+  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
+}
+
+const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
     return (
         <div className="w-full max-w-4xl mx-auto">
               <button
@@ -21,8 +25,8 @@ const EventTimeline = ({ setActiveView }) => {
               >
                 <ArrowLeft size={16} className="mr-1" /> Back
               </button>
-              <h1 className="text-3xl font-bold mb-6 text-center">
-                Upcoming Events
+              <h1 className="text-3xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+                <Calendar size={24} /> Upcoming Events
               </h1>
               <div className="relative">
                 <div className="absolute left-1/2 transform -translate-x-1/2 bg-gray-300 w-1 h-full">
