@@ -1,13 +1,27 @@
-// only dark mode setting working
-
 import React, { useEffect, useState } from "react";
-import { Moon, Bell, Minimize2, Activity, Settings } from "lucide-react";
+import {
+  Moon,
+  Bell,
+  Minimize2,
+  Activity,
+  Settings,
+  Bot,
+  Type,
+  Sparkles,
+  Mic,
+  Volume2,
+} from "lucide-react";
 
 const SettingsPage: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("darkMode") === "true");
   const [reduceMotion, setReduceMotion] = useState(() => localStorage.getItem("reduceMotion") === "true");
   const [compactMode, setCompactMode] = useState(() => localStorage.getItem("compactMode") === "true");
   const [notifications, setNotifications] = useState(() => localStorage.getItem("notifications") !== "false");
+
+  const [typingEffect, setTypingEffect] = useState(() => localStorage.getItem("typingEffect") !== "false");
+  const [voiceInput, setVoiceInput] = useState(() => localStorage.getItem("voiceInput") === "true");
+  const [voiceOutput, setVoiceOutput] = useState(() => localStorage.getItem("voiceOutput") === "true");
+  const [showSuggestions, setShowSuggestions] = useState(() => localStorage.getItem("showSuggestions") !== "false");
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
@@ -24,9 +38,11 @@ const SettingsPage: React.FC = () => {
     document.documentElement.style.setProperty("--layout-gap", compactMode ? "0.5rem" : "1rem");
   }, [compactMode]);
 
-  useEffect(() => {
-    localStorage.setItem("notifications", notifications.toString());
-  }, [notifications]);
+  useEffect(() => localStorage.setItem("notifications", notifications.toString()), [notifications]);
+  useEffect(() => localStorage.setItem("typingEffect", typingEffect.toString()), [typingEffect]);
+  useEffect(() => localStorage.setItem("voiceInput", voiceInput.toString()), [voiceInput]);
+  useEffect(() => localStorage.setItem("voiceOutput", voiceOutput.toString()), [voiceOutput]);
+  useEffect(() => localStorage.setItem("showSuggestions", showSuggestions.toString()), [showSuggestions]);
 
   const SettingToggle = ({
     label,
@@ -72,37 +88,66 @@ const SettingsPage: React.FC = () => {
         <Settings size={28} /> Settings
       </h1>
 
-      <div className="space-y-6">
-        <p className="text-gray-600 dark:text-gray-300 text-center max-w-xl mx-auto">
-          Personalize your experience. These preferences are stored locally and persist across sessions.
-        </p>
+      <div className="space-y-10">
+        <section>
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Interface Preferences</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <SettingToggle
+              label="Dark Mode"
+              icon={<Moon size={20} className="text-orange-500" />}
+              value={darkMode}
+              onChange={() => setDarkMode((v) => !v)}
+            />
+            <SettingToggle
+              label="Reduce Motion"
+              icon={<Activity size={20} className="text-orange-500" />}
+              value={reduceMotion}
+              onChange={() => setReduceMotion((v) => !v)}
+            />
+            <SettingToggle
+              label="Compact Layout"
+              icon={<Minimize2 size={20} className="text-orange-500" />}
+              value={compactMode}
+              onChange={() => setCompactMode((v) => !v)}
+            />
+            <SettingToggle
+              label="Enable Notifications"
+              icon={<Bell size={20} className="text-orange-500" />}
+              value={notifications}
+              onChange={() => setNotifications((v) => !v)}
+            />
+          </div>
+        </section>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-          <SettingToggle
-            label="Dark Mode"
-            icon={<Moon size={20} className="text-orange-500" />}
-            value={darkMode}
-            onChange={() => setDarkMode((v) => !v)}
-          />
-          <SettingToggle
-            label="Reduce Motion"
-            icon={<Activity size={20} className="text-orange-500" />}
-            value={reduceMotion}
-            onChange={() => setReduceMotion((v) => !v)}
-          />
-          <SettingToggle
-            label="Compact Layout"
-            icon={<Minimize2 size={20} className="text-orange-500" />}
-            value={compactMode}
-            onChange={() => setCompactMode((v) => !v)}
-          />
-          <SettingToggle
-            label="Notifications"
-            icon={<Bell size={20} className="text-orange-500" />}
-            value={notifications}
-            onChange={() => setNotifications((v) => !v)}
-          />
-        </div>
+        <section>
+          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Chatbot Behavior</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <SettingToggle
+              label="Typing Effect"
+              icon={<Type size={20} className="text-orange-500" />}
+              value={typingEffect}
+              onChange={() => setTypingEffect((v) => !v)}
+            />
+            <SettingToggle
+              label="Voice Input"
+              icon={<Mic size={20} className="text-orange-500" />}
+              value={voiceInput}
+              onChange={() => setVoiceInput((v) => !v)}
+            />
+            <SettingToggle
+              label="Voice Output"
+              icon={<Volume2 size={20} className="text-orange-500" />}
+              value={voiceOutput}
+              onChange={() => setVoiceOutput((v) => !v)}
+            />
+            <SettingToggle
+              label="Smart Suggestions"
+              icon={<Sparkles size={20} className="text-orange-500" />}
+              value={showSuggestions}
+              onChange={() => setShowSuggestions((v) => !v)}
+            />
+          </div>
+        </section>
       </div>
     </div>
   );
