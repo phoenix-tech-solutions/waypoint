@@ -55,7 +55,7 @@ else:
 retriever = vector_store.as_retriever()
 
 # instantiate a connection to a Gemini 2.0 Flash model
-llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.7)
+llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
 
 qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
