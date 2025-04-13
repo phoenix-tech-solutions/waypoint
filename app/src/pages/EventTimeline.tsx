@@ -26,7 +26,6 @@ interface EventTimelineProps {
 const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100 relative">
-      {/* Inline animation styles */}
       <style>{`
         @keyframes growLine {
           0% { height: 0%; }
@@ -56,7 +55,6 @@ const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
       </h1>
 
       <div className="relative">
-        {/* Animated vertical line */}
         <div className="absolute left-1/2 transform -translate-x-1/2 bg-gray-300 dark:bg-gray-700 w-1 animate-grow-line origin-top" />
 
         {events.map((event: Event, index) => {
