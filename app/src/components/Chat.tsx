@@ -107,7 +107,16 @@ const ChatWithBirdie: React.FC = () => {
 	};
 
 	return (
-		<div className="w-full h-full max-w mx-auto flex flex-col px-4 md:pt-13 pb-2 bg-white dark:bg-gray-800 dark:text-gray-100">
+		<div className="w-full h-full max-w mx-auto flex flex-col px-4 md:pt-13 pb-2 bg-white dark:bg-gray-800 dark:text-gray-100 relative">
+			{messages.length > 0 && (
+				<Button
+					onClick={exportChatToPDF}
+					className="absolute top-4 left-4 sm:left-6 md:left-8 lg:left-10 px-4 py-2 bg-orange-400 hover:bg-orange-500 text-white rounded-full shadow-lg transition-all duration-300"
+				>
+					Save Chat
+				</Button>
+			)}
+
 			{isEmpty ? (
 				<div className="flex flex-col justify-center items-center flex-grow text-center">
 					<h1 className="text-3xl font-bold mb-2">
@@ -171,7 +180,7 @@ const ChatWithBirdie: React.FC = () => {
 								className={`p-4 rounded-lg transition-all duration-500 ease-in-out ${
 									message.type === "user"
 										? "bg-orange-100 dark:bg-orange-900 ml-auto w-fit text-left max-w-[40%] sm:max-w-[50%] md:max-w-[45%] lg:max-w-[40%] sm:mr-[10%] md:mr-[20%] lg:mr-[25%]"
-										: "bg-white dark:bg-gray-800 mr-auto w-fit text-left max-w-[80%] sm:max-w-[70%] md:max-w-[55%] lg:max-w-[90%] sm:ml-[10%] md:ml-[20%] lg:ml-[25%] shadow-sm border border-gray-200 dark:border-gray-700"
+										: "bg-white dark:bg-gray-800 mr-auto w-fit text-left max-w-[80%] sm:max-w-[70%] md:max-w-[65%] lg:max-w-[30%] sm:ml-[10%] md:ml-[20%] lg:ml-[25%] shadow-sm border border-gray-200 dark:border-gray-700"
 								}`}
 							>
 								<div
@@ -240,15 +249,6 @@ const ChatWithBirdie: React.FC = () => {
 						</Button>
 					</form>
 				</div>
-			)}
-
-			{messages.length > 0 && (
-				<Button
-					onClick={exportChatToPDF}
-					className="fixed bottom-6 right-6 z-50 px-4 py-2 bg-orange-400 hover:bg-orange-500 text-white rounded-full shadow-lg transition-all duration-300 hidden sm:block"
-				>
-					Save Chat
-				</Button>
 			)}
 
 			<Toaster
