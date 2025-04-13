@@ -91,18 +91,18 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
   }, {} as typeof groupedStaff);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100">
       <div className="sticky top-2 z-10 mb-4">
         <button
           onClick={() => setActiveView("chat")}
-          className="inline-flex items-center text-gray-700 hover:underline bg-white/80 backdrop-blur rounded-md px-2 py-1"
+          className="inline-flex items-center text-gray-700 hover:underline bg-white/80 backdrop-blur rounded-md px-2 py-1 dark:text-gray-300 dark:bg-gray-800"
         >
           <ArrowLeft size={16} className="mr-2" />
           Back
         </button>
       </div>
 
-      <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
+      <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-8 dark:text-gray-100">
         <span className="flex items-center justify-center gap-2">
           <Briefcase size={28} />
           Staff Directory
@@ -115,12 +115,12 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
           placeholder="Search by name..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full sm:w-1/2 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+          className="w-full sm:w-1/2 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
         />
         <select
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
-          className="w-full sm:w-1/2 md:w-1/4 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+          className="w-full sm:w-1/2 md:w-1/4 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
         >
           <option value="All">All Categories</option>
           {Object.keys(groupedStaff).map((category) => (
@@ -134,10 +134,10 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
       <div className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {Object.entries(filteredStaff).map(([category, members]) => (
-            <div key={category} className="rounded-lg border shadow-sm overflow-hidden">
+            <div key={category} className="rounded-lg border shadow-sm overflow-hidden dark:border-gray-700 dark:bg-gray-800">
               <button
                 onClick={() => toggleCategory(category)}
-                className="w-full flex justify-between items-center px-6 py-4 bg-gray-100 hover:bg-gray-200"
+                className="w-full flex justify-between items-center px-6 py-4 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
               >
                 <span className="text-xl font-semibold text-orange-500">{category}</span>
                 {expandedCategory === category ? (
@@ -147,17 +147,17 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
                 )}
               </button>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-6 bg-white transition-all">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-6 bg-white transition-all dark:bg-gray-800">
                 {members
                   .slice(0, expandedCategory === category ? members.length : 3)
                   .map((member) => (
                     <Card
                       key={member.email}
-                      className="p-4 shadow hover:shadow-lg transition-transform hover:scale-[1.02] border rounded-xl flex flex-col justify-between"
+                      className="p-4 shadow hover:shadow-lg transition-transform hover:scale-[1.02] border rounded-xl flex flex-col justify-between dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200"
                     >
                       <div>
-                        <h2 className="text-lg font-bold text-gray-800">{member.name}</h2>
-                        <p className="text-sm text-gray-600">{member.title}</p>
+                        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">{member.name}</h2>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{member.title}</p>
                       </div>
                       <Dialog>
                         <DialogTrigger asChild>
@@ -165,13 +165,13 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
                             View Details
                           </button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
+                        <DialogContent className="sm:max-w-[425px] dark:bg-gray-900 dark:text-gray-100">
                           <DialogHeader>
                             <DialogTitle>{member.name}</DialogTitle>
                             <DialogDescription>{member.title}</DialogDescription>
                           </DialogHeader>
                           <div className="py-4">
-                            <p className="text-sm text-gray-500 break-words">
+                            <p className="text-sm text-gray-500 dark:text-gray-400 break-words">
                               Email: {member.email}
                             </p>
                           </div>
@@ -182,10 +182,10 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
               </div>
 
               {expandedCategory !== category && members.length > 3 && (
-                <div className="bg-gray-50 px-6 py-3 text-center">
+                <div className="bg-gray-50 px-6 py-3 text-center dark:bg-gray-700">
                   <button
                     onClick={() => toggleCategory(category)}
-                    className="text-sm hover:underline"
+                    className="text-sm hover:underline dark:text-gray-300"
                   >
                     + {members.length - 3} more
                   </button>

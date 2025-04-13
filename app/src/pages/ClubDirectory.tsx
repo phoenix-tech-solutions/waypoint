@@ -26,11 +26,11 @@ const ClubDirectory = ({ setActiveView }: ClubDirectoryProps) => {
     };
 
     return (
-        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8">
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100">
             {!selectedClub && (<>
                 <button
                 onClick={() => setActiveView("chat")}
-                className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer"
+                className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer dark:text-gray-300"
                 >
                 <ArrowLeft size={16} className="mr-1" /> Back
                 </button>
@@ -41,12 +41,12 @@ const ClubDirectory = ({ setActiveView }: ClubDirectoryProps) => {
                     {clubs.map((club) => (
                         <Card
                         key={club.id}
-                        className="p-4 cursor-pointer transition transform hover:scale-105 shadow-md"
+                        className="p-4 cursor-pointer transition transform hover:scale-105 shadow-md dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200"
                         onClick={() => handleClubClick(club)}
                         >
                         <h2 className="text-xl font-bold">{club.name}</h2>
-                        <p className="text-gray-600">Leader: {club.leader}</p>
-                        <p className="text-gray-600">Sponsor: {club.sponsor}</p>
+                        <p className="text-gray-600 dark:text-gray-400">Leader: {club.leader}</p>
+                        <p className="text-gray-600 dark:text-gray-400">Sponsor: {club.sponsor}</p>
                         </Card>
                     ))}
                 </div>
@@ -56,21 +56,21 @@ const ClubDirectory = ({ setActiveView }: ClubDirectoryProps) => {
                 <div className="w-full max-w-2xl mx-auto">
                     <button
                     onClick={() => setSelectedClub(null)}
-                    className="flex items-center mb-4 text-gray-700 hover:underline"
+                    className="flex items-center mb-4 text-gray-700 hover:underline dark:text-gray-300"
                     >
                     <ArrowLeft size={16} className="mr-1" /> Back
                     </button>
-                    <Card className="p-6 transition transform hover:scale-105 shadow-md">
+                    <Card className="p-6 transition transform hover:scale-105 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200">
                     <h1 className="text-3xl font-bold mb-2">{selectedClub.name}</h1>
-                    <p className="mb-2 text-gray-600">
+                    <p className="mb-2 text-gray-600 dark:text-gray-400">
                         <span className="font-semibold">Leader:</span>{" "}
                         {selectedClub.leader}
                     </p>
-                    <p className="mb-4 text-gray-600">
+                    <p className="mb-4 text-gray-600 dark:text-gray-400">
                         <span className="font-semibold">Sponsor:</span>{" "}
                         {selectedClub.sponsor}
                     </p>
-                    <p className="text-gray-500">{selectedClub.description}</p>
+                    <p className="text-gray-500 dark:text-gray-300">{selectedClub.description}</p>
                     </Card>
                 </div>
             )}

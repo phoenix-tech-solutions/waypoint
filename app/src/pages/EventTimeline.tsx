@@ -18,10 +18,10 @@ interface EventTimelineProps {
 
 const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
     return (
-        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8">
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100">
               <button
                 onClick={() => setActiveView("chat")}
-                className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer"
+                className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer dark:text-gray-300"
               >
                 <ArrowLeft size={16} className="mr-1" /> Back
               </button>
@@ -29,7 +29,7 @@ const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
                 <Calendar size={24} /> Upcoming Events
               </h1>
               <div className="relative">
-                <div className="absolute left-1/2 transform -translate-x-1/2 bg-gray-300 w-1 h-full">
+                <div className="absolute left-1/2 transform -translate-x-1/2 bg-gray-300 dark:bg-gray-700 w-1 h-full">
                 </div>
                 {events.map((event: Event, index) => {
                   const isLeft = index % 2 === 0;
@@ -41,7 +41,7 @@ const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
                     "mb-8 relative",
                     "bg-white hover:bg-gray-50 flex flex-col items-start border",
                     isLeft ? "items-end" : "items-start",
-                    "border-gray-200 shadow-sm",
+                    "border-gray-200 shadow-sm dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200"
                   );
 
                   return (
@@ -50,7 +50,7 @@ const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
                         <h2 className="text-xl font-bold mb-2">
                           {event.title}
                         </h2>
-                        <p className="text-gray-600 text-sm">{event.date}</p>
+                        <p className="text-gray-600 text-sm dark:text-gray-400">{event.date}</p>
                         <Dialog>
                           <DialogTrigger asChild>
                             <Button
@@ -60,7 +60,7 @@ const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
                               View Details
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="sm:max-w-[425px]">
+                          <DialogContent className="sm:max-w-[425px] dark:bg-gray-900 dark:text-gray-100">
                             <DialogHeader>
                               <DialogTitle>{event.title}</DialogTitle>
                               <DialogDescription>

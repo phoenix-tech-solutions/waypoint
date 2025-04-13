@@ -107,13 +107,13 @@ const ChatWithBirdie: React.FC = () => {
 	};
 
 	return (
-		<div className="w-full h-full max-w mx-auto flex flex-col px-4 md:pt-13 pb-2">
+		<div className="w-full h-full max-w mx-auto flex flex-col px-4 md:pt-13 pb-2 bg-white dark:bg-gray-800 dark:text-gray-100">
 			{isEmpty ? (
 				<div className="flex flex-col justify-center items-center flex-grow text-center">
 					<h1 className="text-3xl font-bold mb-2">
 						Chat with <span className="text-orange-500">Birdie</span>
 					</h1>
-					<p className="text-gray-500 mb-8">
+					<p className="text-gray-500 dark:text-gray-400 mb-8">
 						Ask anything about Innovation Academy...
 					</p>
 					<form
@@ -142,11 +142,11 @@ const ChatWithBirdie: React.FC = () => {
 								][Math.floor((Date.now() / 3000) % 4)]
 							}
 							className="w-full min-h-[3rem] max-h-[10rem] p-4 pr-12 
-                  rounded-lg resize-none bg-white
-                  border-2 border-gray-200 outline-none
+                  rounded-lg resize-none bg-white dark:bg-gray-800
+                  border-2 border-gray-200 dark:border-gray-700 outline-none
                   focus:border-orange-500 focus:ring-2 focus:ring-orange-200
                   shadow-sm transition-all duration-200
-                  overflow-y-auto no-scrollbar"
+                  overflow-y-auto no-scrollbar dark:text-gray-100"
 							rows={1}
 						/>
 						<Button
@@ -170,14 +170,14 @@ const ChatWithBirdie: React.FC = () => {
 								key={index}
 								className={`p-4 rounded-lg transition-all duration-500 ease-in-out ${
 									message.type === "user"
-										? "bg-orange-100 ml-auto w-fit text-left max-w-[40%] sm:max-w-[50%] md:max-w-[45%] lg:max-w-[40%] sm:mr-[10%] md:mr-[20%] lg:mr-[25%]"
-										: "bg-white mr-auto w-fit text-left max-w-[80%] sm:max-w-[70%] md:max-w-[55%] lg:max-w-[90%] sm:ml-[10%] md:ml-[20%] lg:ml-[25%] shadow-sm border border-gray-200"
+										? "bg-orange-100 dark:bg-orange-900 ml-auto w-fit text-left max-w-[40%] sm:max-w-[50%] md:max-w-[45%] lg:max-w-[40%] sm:mr-[10%] md:mr-[20%] lg:mr-[25%]"
+										: "bg-white dark:bg-gray-800 mr-auto w-fit text-left max-w-[80%] sm:max-w-[70%] md:max-w-[55%] lg:max-w-[90%] sm:ml-[10%] md:ml-[20%] lg:ml-[25%] shadow-sm border border-gray-200 dark:border-gray-700"
 								}`}
 							>
 								<div
 									className="[&>*:not(:last-child)]:mb-4 [&>ul]:list-disc [&>ul]:pl-5 [&>h1]:text-2xl 
                       [&>h2]:text-xl [&>h3]:text-lg [&>h4]:text-base [&>h5]:text-sm [&>h6]:text-xs 
-                      [&>p]:text-gray-700 [&>ul]:mb-4 [&>h1]:mt-4 [&>h2]:mt-3 [&>h3]:mt-2 
+                      [&>p]:text-gray-700 dark:[&>p]:text-gray-300 [&>ul]:mb-4 [&>h1]:mt-4 [&>h2]:mt-3 [&>h3]:mt-2 
                       [&>h4]:mt-2 [&>h5]:mt-2 [&>h6]:mt-2"
 									dangerouslySetInnerHTML={{
 										__html: converter.makeHtml(message.content),
@@ -223,11 +223,11 @@ const ChatWithBirdie: React.FC = () => {
 								][Math.floor((Date.now() / 3000) % 4)]
 							}
 							className="w-full min-h-[3rem] max-h-[10rem] p-4 pr-12 
-                  rounded-lg resize-none bg-white
-                  border-2 border-gray-200 outline-none
+                  rounded-lg resize-none bg-white dark:bg-gray-800
+                  border-2 border-gray-200 dark:border-gray-700 outline-none
                   focus:border-orange-500 focus:ring-2 focus:ring-orange-200
                   shadow-sm transition-all duration-200
-                  overflow-y-auto custom-scrollbar"
+                  overflow-y-auto custom-scrollbar dark:text-gray-100"
 							rows={1}
 						/>
 						<Button

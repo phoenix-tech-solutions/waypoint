@@ -21,6 +21,16 @@ const Dashboard: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    // Apply dark mode on initial load based on localStorage
+    const isDarkMode = localStorage.getItem("darkMode") === "true";
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
   const formattedTime = currentTime.toLocaleTimeString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
@@ -33,14 +43,14 @@ const Dashboard: React.FC = () => {
   });
 
   return (
-    <div className="flex h-screen bg-gray-100 relative">
+    <div className="flex h-screen bg-gray-100 dark:bg-gray-900 dark:text-gray-100 relative"> 
       <Sidebar setActiveView={setActiveView} />
 
-      <div className="flex-1 flex flex-col bg-white relative">
-        <div className="absolute top-4 right-6 flex items-center space-x-3 text-gray-700 z-10 hidden md:flex">
+      <div className="flex-1 flex flex-col bg-white dark:bg-gray-800 relative"> {/* Added dark mode styles */}
+        <div className="absolute top-4 right-6 flex items-center space-x-3 text-gray-700 dark:text-gray-300 z-10 hidden md:flex">
           <div>
             <div className="font-bold text-lg text-right">{formattedTime}</div>
-            <div className="text-sm text-gray-500">{formattedDate}</div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">{formattedDate}</div>
           </div>
           <Clock size={40} />
         </div>
