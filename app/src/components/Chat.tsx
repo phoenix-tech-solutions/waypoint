@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
-import { ArrowUp, Bird } from "lucide-react";
+import { ArrowUp, Bird, Mic, MicOff } from "lucide-react";
 import showdown from "showdown";
 import { Button } from "./ui/button.tsx";
 import jsPDF from "jspdf";
@@ -9,14 +9,49 @@ const ChatWithBirdie: React.FC = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
+	const [isListening, setIsListening] = useState(false);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const messageEndRef = useRef<HTMLDivElement>(null);
+	const recognitionRef = useRef<SpeechRecognition | null>(null);
 	const converter = new showdown.Converter();
 
 	interface ChatMessage {
 		type: "user" | "bot";
 		content: string;
 	}
+
+	useEffect(() => {
+		if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+			const SpeechRecognition =
+				window.SpeechRecognition || window.webkitSpeechRecognition;
+			const recognition = new SpeechRecognition();
+			recognition.lang = "en-US";
+			recognition.interimResults = false;
+			recognitionRef.current = recognition;
+
+			recognition.onresult = (event) => {
+				const transcript = event.results[0][0].transcript;
+				setInputValue((prev) => prev + transcript);
+			};
+			
+			recognition.onend = () => {
+				setIsListening(false);
+			};
+		} else {
+			console.warn("SpeechRecognition is not supported in this browser.");
+		}
+	}, []);
+
+	const handleMicClick = () => {
+		if (recognitionRef.current) {
+			if (isListening) {
+				recognitionRef.current.stop();
+			} else {
+				setIsListening(true);
+				recognitionRef.current.start();
+			}
+		}
+	};
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setInputValue(e.target.value);
@@ -150,7 +185,7 @@ const ChatWithBirdie: React.FC = () => {
 									"Where is Northstar located?",
 								][Math.floor((Date.now() / 3000) % 4)]
 							}
-							className="w-full min-h-[3rem] max-h-[10rem] p-4 pr-12 
+							className="w-full min-h-[3rem] max-h-[10rem] p-4 pr-16 
                   rounded-lg resize-none bg-white dark:bg-gray-800
                   border-2 border-gray-200 dark:border-gray-700 outline-none
                   focus:border-orange-500 focus:ring-2 focus:ring-orange-200
@@ -158,14 +193,25 @@ const ChatWithBirdie: React.FC = () => {
                   overflow-y-auto no-scrollbar dark:text-gray-100"
 							rows={1}
 						/>
-						<Button
-							type="submit"
-							className="absolute right-4 p-2 h-8 w-8 rounded-full 
-          bg-orange-500 hover:bg-orange-600 cursor-pointer"
-							disabled={!inputValue.trim()}
-						>
-							<ArrowUp size={18} className="text-white" />
-						</Button>
+						{!inputValue.trim() ? (
+							<Button
+								type="button"
+								onClick={handleMicClick}
+								className={`absolute right-4 p-2 h-10 w-10 rounded-full 
+                  ${isListening ? "bg-orange-500" : "bg-gray-500"} hover:bg-gray-600 cursor-pointer flex items-center justify-center`}
+							>
+								<Mic size={20} className="text-white" />
+							</Button>
+						) : (
+							<Button
+								type="submit"
+								className="absolute right-4 p-2 h-10 w-10 rounded-full 
+          bg-orange-500 hover:bg-orange-600 cursor-pointer flex items-center justify-center"
+								disabled={!inputValue.trim()}
+							>
+								<ArrowUp size={20} className="text-white" />
+							</Button>
+						)}
 					</form>
 				</div>
 			) : (
@@ -231,7 +277,7 @@ const ChatWithBirdie: React.FC = () => {
 									"Where is Northstar located?",
 								][Math.floor((Date.now() / 3000) % 4)]
 							}
-							className="w-full min-h-[3rem] max-h-[10rem] p-4 pr-12 
+							className="w-full min-h-[3rem] max-h-[10rem] p-4 pr-16 
                   rounded-lg resize-none bg-white dark:bg-gray-800
                   border-2 border-gray-200 dark:border-gray-700 outline-none
                   focus:border-orange-500 focus:ring-2 focus:ring-orange-200
@@ -239,14 +285,25 @@ const ChatWithBirdie: React.FC = () => {
                   overflow-y-auto custom-scrollbar dark:text-gray-100"
 							rows={1}
 						/>
-						<Button
-							type="submit"
-							className="absolute top-1/2 right-2 transform -translate-y-1/2 p-2 h-8 w-8 rounded-full 
-                  bg-orange-500 hover:bg-orange-600 cursor-pointer"
-							disabled={!inputValue.trim()}
-						>
-							<ArrowUp size={18} className="text-white" />
-						</Button>
+						{!inputValue.trim() ? (
+							<Button
+								type="button"
+								onClick={handleMicClick}
+								className={`absolute top-1/2 right-4 transform -translate-y-1/2 p-2 h-10 w-10 rounded-full 
+                  ${isListening ? "bg-orange-500" : "bg-gray-500"} hover:bg-gray-600 cursor-pointer flex items-center justify-center`}
+							>
+								<Mic size={20} className="text-white" />
+							</Button>
+						) : (
+							<Button
+								type="submit"
+								className="absolute top-1/2 right-4 transform -translate-y-1/2 p-2 h-10 w-10 rounded-full 
+                  bg-orange-500 hover:bg-orange-600 cursor-pointer flex items-center justify-center"
+								disabled={!inputValue.trim()}
+							>
+								<ArrowUp size={20} className="text-white" />
+							</Button>
+						)}
 					</form>
 				</div>
 			)}
