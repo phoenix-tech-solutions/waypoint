@@ -69,9 +69,3 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 ## 🤝 Contributing
 
 This project is actively being developed by students at Innovation Academy. If you're interested in contributing or want to collaborate, feel free to open an issue or reach out!
-
----
-
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
