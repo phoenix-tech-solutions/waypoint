@@ -60,5 +60,8 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
 qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
 
 question = input()
+retrieved_docs = retriever.get_relevant_documents(question)
+for i, doc in enumerate(retrieved_docs, 1):
+    logger.debug("Document %d:\n%s\n", i, doc.page_content)
 answer = qa_chain.invoke(question)
 print(answer['result'])
