@@ -6,10 +6,6 @@ const app = express();
 app.use(express.json());
 const PORT = 8000;
 
-app.get('/api', (req, res) => {
-    res.send('Hello, World!');
-});
-
 process.chdir('server');
 app.post('/api/prompt', (req, res) => {
     const pythonExecutable = process.platform === 'win32' 
