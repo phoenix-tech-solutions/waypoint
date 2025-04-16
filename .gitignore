@@ -9,3 +9,6 @@ node_modules
 
 # Python
 server/venv
+
+# Logs
+**/*.log

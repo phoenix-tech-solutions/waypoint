@@ -1,3 +1,5 @@
+# This file must be run with your current working directory set to `./server` relative to the repository’s root; it cannot be run from the root directory of the project.
+
 import os
 import dotenv
 import json
@@ -6,14 +8,23 @@ from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain.chains import RetrievalQA
 from langchain_mistralai import ChatMistralAI, MistralAIEmbeddings
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+import logging
 from langchain_google_genai import ChatGoogleGenerativeAI
 
+logging.basicConfig(
+    filename='retrieved_documents.log',
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger()
 
 dotenv.load_dotenv()
 
-faiss_index_path = "faiss_index"
+faiss_index_path = os.path.abspath("./faiss_index")
+print(faiss_index_path)
 
-embeddings = MistralAIEmbeddings() # load MistralAI embeddings
+embeddings = MistralAIEmbeddings()
 
 def documentify(record):
     return Document(
@@ -22,39 +33,28 @@ def documentify(record):
     )
 
 if os.path.exists(faiss_index_path):
-    # if FAISS index exists, load it
-    
     vector_store = FAISS.load_local(faiss_index_path, embeddings, allow_dangerous_deserialization=True)
 else:
-    # if FAISS index does not exist, create it
-    
     with open('../IA_data.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    records = filter(lambda record: record.get('text'), data) # filter out records without text
-    
-    documents = list(map(
-        documentify,
-        records
-    ))
-    
+    records = filter(lambda record: record.get('text'), data)
+    documents = list(map(documentify, records))
+
     if not documents:
-        raise ValueError("No documents found with valid content. Check your JSON file structure.")
+        raise ValueError("No documents found with valid content.")
 
     text_splitter = CharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     docs = text_splitter.split_documents(documents)
 
     if not docs:
-        raise ValueError("No text chunks were created after splitting. Verify your data and splitter settings.")
+        raise ValueError("No text chunks created.")
 
-    vector_store = FAISS.from_documents(docs, embeddings) # create FAISS index from documents
-    
-    vector_store.save_local(faiss_index_path) # save it so next time we can load it directly
+    vector_store = FAISS.from_documents(docs, embeddings)
+    vector_store.save_local(faiss_index_path)
 
-# create a retriever from the vector store
 retriever = vector_store.as_retriever()
 
-# instantiate a connection to a Gemini 2.0 Flash model
 llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.2)
 
 qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
