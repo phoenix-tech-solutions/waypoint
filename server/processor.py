@@ -22,7 +22,7 @@ logger = logging.getLogger()
 dotenv.load_dotenv()
 
 faiss_index_path = os.path.abspath("./faiss_index")
-print(faiss_index_path)
+data_path = os.path.abspath("./data.json")
 
 embeddings = MistralAIEmbeddings()
 
@@ -35,9 +35,9 @@ def documentify(record):
 if os.path.exists(faiss_index_path):
     vector_store = FAISS.load_local(faiss_index_path, embeddings, allow_dangerous_deserialization=True)
 else:
-    with open('../IA_data.json', 'r', encoding='utf-8') as f:
+    with open(data_path, 'r', encoding='utf-8') as f:
         data = json.load(f)
-
+    
     records = filter(lambda record: record.get('text'), data)
     documents = list(map(documentify, records))
 
