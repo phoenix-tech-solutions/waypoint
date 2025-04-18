@@ -12,3 +12,5 @@ server/venv
 
 # Logs
 **/*.log
+
+.vscode
