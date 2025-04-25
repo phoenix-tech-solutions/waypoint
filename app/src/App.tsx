@@ -6,7 +6,12 @@ import StaffDirectory from "./pages/StaffDirectory.tsx";
 import ClubDirectory from "./pages/ClubDirectory.tsx";
 import EventTimeline from "./pages/EventTimeline.tsx";
 import { AnimatePresence, motion } from "framer-motion";
-import SettingsPage from "./pages/SettingsPage.tsx"; // Import the new settings page
+import SettingsPage from "./pages/SettingsPage.tsx";
+import { createClient, Session } from '@supabase/supabase-js';
+import Login from './pages/Login.tsx';
+
+
+const supabase = createClient('https://vjbdrsuksueppbxxebzp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZqYmRyc3Vrc3VlcHBieHhlYnpwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NjA0NzYsImV4cCI6MjA2MDMzNjQ3Nn0.QNrJgBgwfNS5ttQJruebkyK-hVisApDeXdqtdaMLy9w')
 
 const Dashboard: React.FC = () => {
   const [activeView, setActiveView] = useState<
@@ -22,7 +27,6 @@ const Dashboard: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // Apply dark mode on initial load based on localStorage
     const isDarkMode = localStorage.getItem("darkMode") === "true";
     if (isDarkMode) {
       document.documentElement.classList.add("dark");
@@ -30,6 +34,25 @@ const Dashboard: React.FC = () => {
       document.documentElement.classList.remove("dark");
     }
   }, []);
+
+  const [session, setSession] = useState<null | Session>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (!session) {
+    // return <Auth supabaseClient={supabase} appearance={{ theme: ThemeSupa }} />;
+    return <Login />;
+  }
 
   const formattedTime = currentTime.toLocaleTimeString("en-US", {
     hour: "2-digit",
