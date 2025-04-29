@@ -28,7 +28,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 | Sidebar         | ✅ Done         |
 | Navigation bar  | ✅ Done         |
 | Settings page   | ⏳ In Progress |
-| Accounts page   | ⏳ In Progress |
+| Accounts        | ✅ Done (for now) |
 
 ### 🧠 Backend (Python + RAG)
 
