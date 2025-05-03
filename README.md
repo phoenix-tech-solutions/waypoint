@@ -62,7 +62,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 - **Backend**: Node.js, Express, FAISS
 - **LLM**: Gemini 2.0 Flash (via API)
 - **Embeddings**: MistralAI
-- **Database**: SQLite / Supabase (in-progress)
+- **Database**: Supabase
 
 ---
 
