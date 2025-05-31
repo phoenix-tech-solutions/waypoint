@@ -11,6 +11,13 @@ const app = express();
 app.use(express.json());
 const PORT = 8000;
 
+
+app.use(express.static(path.join(__dirname, '..', 'app', 'dist')));
+
+app.get(/(.*)/, (_, res) => {
+  res.sendFile(path.join(__dirname, '..', 'app', 'dist', 'index.html'));
+});
+
 process.chdir('server');
 app.post('/api/prompt', (req, res) => {
     const pythonExecutable = process.platform === 'win32' 
