@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import { ArrowLeft, Briefcase, ChevronDown, ChevronUp } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Briefcase, ChevronDown, ChevronUp, LogOut } from "lucide-react";
 import { Card } from "../components/ui/card.tsx";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger } from "../components/ui/dialog.tsx";
 import staffData from "../tmp/staff.json";
+import { supabase } from "../lib/utils.ts"; // Use exported Supabase client
 
-interface StaffDirectoryProps {
-  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
-}
-
-const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
+const StaffDirectory = () => {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
-  const [selectedStaff, setSelectedStaff] = useState<{
-    name: string;
-    title: string;
-    email: string;
-  } | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [filterCategory, setFilterCategory] = useState<string>("All");
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/login"); // Redirect to login page after logout
+  };
 
   const categorizeStaff = (staff: typeof staffData) => {
     const categories: Record<string, typeof staffData> = {
@@ -68,14 +67,6 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
     setExpandedCategory(expandedCategory === category ? null : category);
   };
 
-  const openModal = (staff: { name: string; title: string; email: string }) => {
-    setSelectedStaff(staff);
-  };
-
-  const closeModal = () => {
-    setSelectedStaff(null);
-  };
-
   const filteredStaff = Object.entries(groupedStaff).reduce((acc, [category, members]) => {
     if (filterCategory !== "All" && category !== filterCategory) return acc;
 
@@ -91,15 +82,15 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
   }, {} as typeof groupedStaff);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100">
-      <div className="sticky top-2 z-10 mb-4">
+    <div className="w-full h-full max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100">
+      <div className="sticky top-2 z-10 mb-4 flex justify-between items-center">
         <button
-          onClick={() => setActiveView("chat")}
+          onClick={() => navigate("/chat")}
           className="inline-flex items-center text-gray-700 hover:underline bg-white/80 backdrop-blur rounded-md px-2 py-1 dark:text-gray-300 dark:bg-gray-800"
         >
           <ArrowLeft size={16} className="mr-2" />
           Back
-        </button>
+        </button> 
       </div>
 
       <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-8 dark:text-gray-100">
@@ -118,6 +109,7 @@ const StaffDirectory = ({ setActiveView }: StaffDirectoryProps) => {
           className="w-full sm:w-1/2 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
         />
         <select
+          title="Filter by category"
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
           className="w-full sm:w-1/2 md:w-1/4 px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
