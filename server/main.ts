@@ -1,10 +1,26 @@
 import express from 'express';
 import { spawn } from 'child_process';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 app.use(express.json());
 const PORT = 8000;
+
+
+app.use(express.static(path.join(__dirname, '..', 'app', 'dist')));
+app.use((_, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'none'; img-src 'self' https://waypoint-ia.onrender.com;");
+  next();
+});
+
+app.get(/(.*)/, (_, res) => {
+  res.sendFile(path.join(__dirname, '..', 'app', 'dist', 'index.html'));
+});
 
 process.chdir('server');
 app.post('/api/prompt', (req, res) => {
