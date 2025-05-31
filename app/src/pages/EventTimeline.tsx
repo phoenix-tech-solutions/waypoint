@@ -11,7 +11,6 @@ import {
 } from "../components/ui/dialog.tsx";
 import { cn } from "../lib/utils.ts";
 import { events } from "../tmp/data.ts";
-import { useNavigate } from "react-router-dom";
 
 interface Event {
   id: number;
@@ -20,9 +19,11 @@ interface Event {
   details: string;
 }
 
-const EventTimeline = () => {
-  const navigate = useNavigate();
+interface EventTimelineProps {
+  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
+}
 
+const EventTimeline = ({ setActiveView }: EventTimelineProps) => {
   return (
     <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100 relative">
       <style>{`
@@ -43,7 +44,7 @@ const EventTimeline = () => {
       `}</style>
 
       <button
-        onClick={() => navigate("/chat")}
+        onClick={() => setActiveView("chat")}
         className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer dark:text-gray-300"
       >
         <ArrowLeft size={16} className="mr-1" /> Back

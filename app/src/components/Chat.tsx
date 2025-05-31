@@ -282,7 +282,7 @@ const ChatWithBirdie: React.FC = () => {
                   border-2 border-gray-200 dark:border-gray-700 outline-none
                   focus:border-orange-500 focus:ring-2 focus:ring-orange-200
                   shadow-sm transition-all duration-200
-                  overflow-hidden custom-scrollbar dark:text-gray-100"
+                  overflow-hidden custom-scrollbar dark:text-gray-100" // Set overflow to hidden
 							rows={1}
 						/>
 						{!inputValue.trim() ? (

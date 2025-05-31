@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Card } from "../components/ui/card.tsx";
 import { ArrowLeft, Users } from "lucide-react";
 import { clubs } from "../tmp/data.ts";
-import { useNavigate } from "react-router-dom";
 
 interface Club {
     id: string;
@@ -14,19 +13,23 @@ interface Club {
 
 type ClubView = null | Club;
 
-const ClubDirectory = () => {
+interface ClubDirectoryProps {
+  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
+}
+
+const ClubDirectory = ({ setActiveView }: ClubDirectoryProps) => {
     const [selectedClub, setSelectedClub] = useState<ClubView>(null);
-    const navigate = useNavigate();
+
 
     const handleClubClick = (club: Club) => {
         setSelectedClub(club);
     };
 
     return (
-        <div className="w-full h-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100">
+        <div className="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-8 bg-white dark:bg-gray-800 dark:text-gray-100">
             {!selectedClub && (<>
                 <button
-                onClick={() => navigate("/chat")}
+                onClick={() => setActiveView("chat")}
                 className="flex items-center mb-4 text-gray-700 hover:underline cursor-pointer dark:text-gray-300"
                 >
                 <ArrowLeft size={16} className="mr-1" /> Back

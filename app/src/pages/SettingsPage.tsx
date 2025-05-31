@@ -5,13 +5,12 @@ import {
   Minimize2,
   Activity,
   Settings,
+  Bot,
   Type,
   Sparkles,
   Mic,
   Volume2,
-  LogOut,
 } from "lucide-react";
-import { supabase } from "../lib/utils.ts"; // Use exported Supabase client
 
 const SettingsPage: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("darkMode") === "true");
@@ -44,11 +43,6 @@ const SettingsPage: React.FC = () => {
   useEffect(() => localStorage.setItem("voiceInput", voiceInput.toString()), [voiceInput]);
   useEffect(() => localStorage.setItem("voiceOutput", voiceOutput.toString()), [voiceOutput]);
   useEffect(() => localStorage.setItem("showSuggestions", showSuggestions.toString()), [showSuggestions]);
-
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    window.location.reload(); // Reload to reset the app state
-  };
 
   const SettingToggle = ({
     label,
@@ -152,19 +146,6 @@ const SettingsPage: React.FC = () => {
               value={showSuggestions}
               onChange={() => setShowSuggestions((v) => !v)}
             />
-          </div>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">Account</h2>
-          <div className="grid grid-cols-1 gap-6">
-            <button
-              onClick={handleLogout}
-              className="flex items-center justify-center gap-3 p-4 border rounded-xl shadow-sm bg-red-500 text-white font-medium hover:bg-red-600 transition-all"
-            >
-              <LogOut size={20} />
-              Logout
-            </button>
           </div>
         </section>
       </div>

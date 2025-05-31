@@ -1,27 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ChevronLeft, ChevronRight, MessageSquare, Briefcase, Users, Calendar, Settings } from "lucide-react";
 import { Button } from "./ui/button.tsx";
 import { events } from "../tmp/data.ts";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "../lib/utils.ts";
 
-const Sidebar = () => {
+interface SidebarProps {
+  setActiveView: (view: "chat" | "staff" | "clubs" | "events" | "settings") => void;
+}
+
+const Sidebar = ({ setActiveView }: SidebarProps) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [displayName, setDisplayName] = useState<string | null>(null);
   const upcomingEvents = events.filter((event) =>
     new Date(event.date) >= new Date()
   ).slice(0, 2);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      const firstName = user?.user_metadata?.first_name || "";
-      const lastName = user?.user_metadata?.last_name || "";
-      setDisplayName(firstName && lastName ? `${firstName} ${lastName}` : "Guest");
-    };
-    fetchUser();
-  }, []);
 
   return (
     <div
@@ -43,9 +33,9 @@ const Sidebar = () => {
         <div className="flex flex-col h-full">
           <div className="flex-grow pt-8">
             <h2 className="text-lg text-gray-500 dark:text-gray-300">Welcome,</h2>
-            <h1 className="text-2xl font-bold dark:text-gray-100">{displayName}</h1>
+            <h1 className="text-2xl font-bold dark:text-gray-100">John John</h1>
             <Button
-              onClick={() => navigate("chat")}
+              onClick={() => setActiveView("chat")}
               className="mt-4 bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded flex items-center gap-2 shadow-md hover:shadow-lg transition-shadow duration-200 text-left cursor-pointer"
             >
               <MessageSquare size={18} /> Chat with Birdie
@@ -56,21 +46,21 @@ const Sidebar = () => {
               <div className="mt-3 space-y-2 flex flex-col">
                 <Button
                   variant="ghost"
-                  onClick={() => navigate("/staff")}
+                  onClick={() => setActiveView("staff")}
                   className="w-full justify-start text-left hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer flex items-center gap-2 dark:text-gray-300"
                 >
                   <Briefcase size={18} /> Staff Directory
                 </Button>
                 <Button
                   variant="ghost"
-                  onClick={() => navigate("/clubs")}
+                  onClick={() => setActiveView("clubs")}
                   className="w-full justify-start text-left hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer flex items-center gap-2 dark:text-gray-300"
                 >
                   <Users size={18} /> Clubs Info
                 </Button>
                 <Button
                   variant="ghost"
-                  onClick={() => navigate("/events")}
+                  onClick={() => setActiveView("events")}
                   className="w-full justify-start text-left hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer flex items-center gap-2 dark:text-gray-300"
                 >
                   <Calendar size={18} /> Events
@@ -95,7 +85,7 @@ const Sidebar = () => {
           <div className="border-t border-gray-200 dark:border-gray-700 mt-4 pt-4">
             <Button
               variant="ghost"
-              onClick={() => navigate("/settings")}
+              onClick={() => setActiveView("settings")}
               className="w-full justify-start text-left hover:bg-gray-200 dark:hover:bg-gray-700 rounded cursor-pointer flex items-center gap-2 dark:text-gray-300"
             >
               <Settings size={18} /> Settings
