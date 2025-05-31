@@ -3,6 +3,7 @@ import { spawn } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,12 +21,35 @@ app.get(/(.*)/, (_, res) => {
 
 process.chdir('server');
 app.post('/api/prompt', (req, res) => {
+    // Ensure venv exists, if not, create it
+    const venvPath = path.join(__dirname, 'venv');
+    if (!fs.existsSync(venvPath)) {
+        const pythonCmd = process.platform === 'win32' ? 'python' : 'python3';
+        const child = spawn(pythonCmd, ['-m', 'venv', 'venv'], { cwd: __dirname, shell: true });
+        child.on('close', (code) => {
+            if (code !== 0) {
+                console.error('Failed to create venv');
+                return res.status(500).json({ error: 'Failed to create Python venv' });
+            }
+            // After venv is created, continue with the rest of the handler
+            handlePrompt(req, res);
+        });
+        child.on('error', (err) => {
+            console.error('Failed to create venv:', err);
+            return res.status(500).json({ error: 'Failed to create Python venv' });
+        });
+        return;
+    }
+    // If venv exists, continue as normal
+    handlePrompt(req, res);
+});
+
+function handlePrompt(req: express.Request, res: express.Response) {
     const pythonExecutable = process.platform === 'win32' 
         ? path.join("venv", "Scripts", "python.exe") 
         : path.join("venv", "bin", "python3");
 
     const pythonProcess = spawn(pythonExecutable, ['processor.py']);
-    
     let dataString = '';
 
     pythonProcess.stdin.write(req.body.prompt + '\n');
@@ -40,7 +64,6 @@ app.post('/api/prompt', (req, res) => {
     });
 
     pythonProcess.on('close', (code) => {
-        
         if (code !== 0) {
             return res.status(500).json({ error: 'Python script failed' });
         }
@@ -49,7 +72,7 @@ app.post('/api/prompt', (req, res) => {
             message: dataString
         });
     });
-});
+}
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
