@@ -28,11 +28,26 @@ app.post('/api/prompt', (req, res) => {
         const child = spawn(pythonCmd, ['-m', 'venv', 'venv'], { cwd: __dirname, shell: true });
         child.on('close', (code) => {
             if (code !== 0) {
-                console.error('Failed to create venv');
-                return res.status(500).json({ error: 'Failed to create Python venv' });
+            console.error('Failed to create venv');
+            return res.status(500).json({ error: 'Failed to create Python venv' });
             }
-            // After venv is created, continue with the rest of the handler
+            // Install dependencies from requirements.txt
+            const pipExecutable = process.platform === 'win32'
+            ? path.join('venv', 'Scripts', 'pip.exe')
+            : path.join('venv', 'bin', 'pip3');
+            const install = spawn(pipExecutable, ['install', '-r', 'requirements.txt'], { cwd: __dirname, shell: true });
+            install.on('close', (installCode) => {
+            if (installCode !== 0) {
+                console.error('Failed to install dependencies');
+                return res.status(500).json({ error: 'Failed to install Python dependencies' });
+            }
+            // After dependencies are installed, continue with the rest of the handler
             handlePrompt(req, res);
+            });
+            install.on('error', (err) => {
+            console.error('Failed to install dependencies:', err);
+            return res.status(500).json({ error: 'Failed to install Python dependencies' });
+            });
         });
         child.on('error', (err) => {
             console.error('Failed to create venv:', err);
