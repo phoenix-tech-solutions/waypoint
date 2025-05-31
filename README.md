@@ -28,7 +28,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 | Sidebar         | ✅ Done         |
 | Navigation bar  | ✅ Done         |
 | Settings page   | ⏳ In Progress |
-| Accounts page   | ⏳ In Progress |
+| Accounts        | ✅ Done (for now) |
 
 ### 🧠 Backend (Python + RAG)
 
@@ -62,10 +62,11 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 - **Backend**: Node.js, Express, FAISS
 - **LLM**: Gemini 2.0 Flash (via API)
 - **Embeddings**: MistralAI
-- **Database**: SQLite / Supabase (in-progress)
+- **Database**: Supabase
 
 ---
 
 ## 🤝 Contributing
 
-This project is actively being developed by students at Innovation Academy. If you're interested in contributing or want to collaborate, feel free to open an issue or reach out!
+
+This project was developed by students at Innovation Academy. If you're interested in contributing or want to collaborate, feel free to open an issue or reach out!

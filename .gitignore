@@ -10,5 +10,9 @@ node_modules
 # Python
 server/venv
 
-# Logs
 **/*.log
+
+.vscode
+
+# Dist
+app/dist
