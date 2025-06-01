@@ -113,6 +113,54 @@ function handlePrompt(req: express.Request, res: express.Response) {
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+function handlePrompt(req: express.Request, res: express.Response) {
+    console.log("Handling prompt:", req.body.prompt);
+    const pythonExecutable = process.platform === "win32"
+        ? path.join("venv", "Scripts", "python.exe")
+        : path.join("venv", "bin", "python3");
+
+    console.log(`Spawning Python process: ${pythonExecutable} processor.py`);
+    const pythonProcess = spawn(pythonExecutable, ["processor.py"]);
+    let dataString = "";
+
+    pythonProcess.stdin.write(req.body.prompt + "\n");
+    pythonProcess.stdin.end();
+
+    pythonProcess.stdout.on("data", (data) => {
+        console.log(`[Python stdout]: ${data}`);
+        dataString += data.toString();
+    });
+
+    pythonProcess.stderr.on("data", (data) => {
+        console.error(`[Python stderr]: ${data}`);
+    });
+
+    pythonProcess.on("close", (code) => {
+        console.log(`Python process exited with code ${code}`);
+        if (code !== 0) {
+            return res.status(500).json({ error: "Python script failed" });
+        }
+        res.json({
+            query: req.body.prompt,
+            message: dataString,
+        });
+    });
+}
+
+console.log("Ensuring Python venv and dependencies...");
+ensureVenv()
+    .then(() => {
+        console.log("venv and dependencies ready. Setting up API routes...");
+        app.post("/api/prompt", (req, res) => {
+            console.log("Received POST /api/prompt");
+            handlePrompt(req, res);
+        });
+
+        app.listen(PORT, () => {
+            console.log(`Server is running at http://localhost:${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.error("Failed to initialize Python venv or dependencies:", err);
+        process.exit(1);
+    });
