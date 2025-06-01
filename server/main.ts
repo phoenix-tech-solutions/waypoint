@@ -40,6 +40,8 @@ app.post('/api/prompt', (req, res) => {
             if (installCode !== 0) {
                 console.error('Failed to install dependencies');
                 return res.status(500).json({ error: 'Failed to install Python dependencies' });
+            } else {
+            console.log('Python dependencies installed successfully');
             }
             // After dependencies are installed, continue with the rest of the handler
             handlePrompt(req, res);
