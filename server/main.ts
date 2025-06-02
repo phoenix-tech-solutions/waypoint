@@ -1,140 +1,139 @@
+import * as fs from "fs";
+import * as path from "path";
+import dotenv from "dotenv";
 import express from "express";
-import { spawn } from "child_process";
-import path from "path";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
-import fs from "fs";
+import bodyParser from "body-parser";
+import { Document } from "@langchain/core/documents";
+import { CharacterTextSplitter } from "@langchain/textsplitters";
+import { FaissStore } from "@langchain/community/vectorstores/faiss";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { MistralAIEmbeddings } from "@langchain/mistralai";
+import { createRetrievalChain } from "langchain/chains/retrieval";
+import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
+import { ChatPromptTemplate } from "@langchain/core/prompts";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+dotenv.config();
+console.log("MISTRAL_API_KEY:", process.env.MISTRAL_API_KEY);
 
-const app = express();
-app.use(express.json());
-const PORT = 8000;
+const faissIndexPath = path.resolve("server/faiss_index");
+const dataPath = path.resolve("server/data.json");
 
-console.log("Setting up static file serving...");
-app.use(express.static(path.join(__dirname, "..", "app", "dist")));
+const embeddings = new MistralAIEmbeddings();
 
-app.get(/(.*)/, (_, res) => {
-    console.log("Serving index.html for unmatched route");
-    res.sendFile(path.join(__dirname, "..", "app", "dist", "index.html"));
+interface RecordType {
+  text: string;
+  [key: string]: unknown;
+}
+
+function documentify(record: RecordType): Document {
+  const { text, ...metadata } = record;
+  return new Document({
+    pageContent: text.trim(),
+    metadata,
+  });
+}
+
+async function setupChain() {
+  let vectorStore: FaissStore;
+
+  if (fs.existsSync(faissIndexPath)) {
+    vectorStore = await FaissStore.load(faissIndexPath, embeddings);
+  } else {
+    const rawData = fs.readFileSync(dataPath, "utf-8");
+    const data: RecordType[] = JSON.parse(rawData);
+    const records = data.filter((record) => record.text);
+    const documents = records.map(documentify);
+
+    if (!documents.length) {
+      throw new Error("No documents found with valid content.");
+    }
+
+    const textSplitter = new CharacterTextSplitter({
+      chunkSize: 500,
+      chunkOverlap: 50,
+    });
+
+    const docs = await textSplitter.splitDocuments(documents);
+
+    if (!docs.length) {
+      throw new Error("No text chunks created.");
+    }
+
+    vectorStore = await FaissStore.fromDocuments(docs, embeddings);
+    await vectorStore.save(faissIndexPath);
+  }
+
+  const retriever = vectorStore.asRetriever();
+
+  const llm = new ChatGoogleGenerativeAI({
+    model: "gemini-2.0-flash",
+    temperature: 0.2,
+  });
+
+  const prompt = ChatPromptTemplate.fromTemplate(
+    "Answer the question based on the context:\n\n{context}\n\nQuestion: {input}",
+  );
+
+  const combineDocsChain = await createStuffDocumentsChain({
+    llm,
+    prompt,
+  });
+
+  const chain = await createRetrievalChain({
+    retriever,
+    combineDocsChain,
+  });
+
+  return chain;
+}
+
+async function main() {
+  const chain = await setupChain();
+
+  const app = express();
+  app.use(bodyParser.json());
+
+  // Add this endpoint to match the frontend proxy
+  app.post("/api/prompt", (req, res) => {
+    const { prompt } = req.body;
+    if (!prompt) {
+        res.status(400).send("Missing prompt in request body.");
+        return;
+    }
+    (async () => {
+      try {
+        res.setHeader("Transfer-Encoding", "chunked");
+
+        // If the chain supports streaming, use it. Otherwise, fallback to normal.
+        if (typeof chain.stream === "function") {
+          const stream = await chain.stream({ input: prompt });
+          for await (const chunk of stream) {
+            const text = chunk?.answer || "";
+            res.write(text);
+          }
+          res.end();
+        } else {
+          // Fallback: not streaming
+          const answer = await chain.invoke({ input: prompt });
+          res.send(answer);
+        }
+      } catch (err) {
+        console.error("Error during question processing:", err);
+        if (!res.headersSent) {
+          res.status(500).send("Internal server error.");
+        } else {
+          res.end();
+        }
+      }
+    })();
+  });
+
+  const port = process.env.PORT || 8000;
+  app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+  });
+}
+
+main().catch((err) => {
+  console.error("Error:", err);
 });
-
-const venvPath = path.join(__dirname, "venv");
-
-function ensureVenv(): Promise<void> {
-    return new Promise((resolve, reject) => {
-        console.log("Checking for venv at:", venvPath);
-        if (fs.existsSync(venvPath)) {
-            console.log("venv exists, skipping creation.");
-            return resolve();
-        }
-        
-        console.log("venv does not exist, creating...");
-        const pythonCmd = process.platform === "win32" ? "python" : "python3";
-        console.log(`Spawning process: ${pythonCmd} -m venv venv`);
-        const child = spawn(pythonCmd, ["-m", "venv", "venv"], {
-            cwd: __dirname,
-            shell: true,
-        });
-
-        child.stdout?.on("data", (data) => {
-            console.log(`[venv creation stdout]: ${data}`);
-        });
-        child.stderr?.on("data", (data) => {
-            console.error(`[venv creation stderr]: ${data}`);
-        });
-
-        child.on("close", (code) => {
-            console.log(`venv creation process exited with code ${code}`);
-            if (code !== 0) {
-                return reject(new Error("Failed to create Python venv"));
-            }
-            // Install dependencies from requirements.txt
-            const pipExecutable = process.platform === "win32"
-                ? path.join("venv", "Scripts", "pip.exe")
-                : path.join("venv", "bin", "pip3");
-            console.log(`Installing dependencies using: ${pipExecutable}`);
-            const install = spawn(pipExecutable, [
-                "install",
-                "-r",
-                "requirements.txt",
-            ], { cwd: __dirname, shell: true });
-
-            install.stdout?.on("data", (data) => {
-                console.log(`[pip install stdout]: ${data}`);
-            });
-            install.stderr?.on("data", (data) => {
-                console.error(`[pip install stderr]: ${data}`);
-            });
-
-            install.on("close", (installCode) => {
-                console.log(`pip install process exited with code ${installCode}`);
-                if (installCode !== 0) {
-                    return reject(new Error("Failed to install Python dependencies"));
-                }
-                resolve();
-            });
-            install.on("error", (err) => {
-                console.error("Error during pip install:", err);
-                reject(err);
-            });
-        });
-        child.on("error", (err) => {
-            console.error("Error during venv creation:", err);
-            reject(err);
-        });
-    });
-}
-
-function handlePrompt(req: express.Request, res: express.Response) {
-    console.log("Handling prompt:", req.body.prompt);
-    const pythonExecutable = process.platform === "win32"
-        ? path.join("venv", "Scripts", "python.exe")
-        : path.join("venv", "bin", "python3");
-
-    console.log(`Spawning Python process: ${pythonExecutable} processor.py`);
-    const pythonProcess = spawn(pythonExecutable, ["processor.py"]);
-    let dataString = "";
-
-    pythonProcess.stdin.write(req.body.prompt + "\n");
-    pythonProcess.stdin.end();
-
-    pythonProcess.stdout.on("data", (data) => {
-        console.log(`[Python stdout]: ${data}`);
-        dataString += data.toString();
-    });
-
-    pythonProcess.stderr.on("data", (data) => {
-        console.error(`[Python stderr]: ${data}`);
-    });
-
-    pythonProcess.on("close", (code) => {
-        console.log(`Python process exited with code ${code}`);
-        if (code !== 0) {
-            return res.status(500).json({ error: "Python script failed" });
-        }
-        res.json({
-            query: req.body.prompt,
-            message: dataString,
-        });
-    });
-}
-
-console.log("Ensuring Python venv and dependencies...");
-ensureVenv()
-    .then(() => {
-        console.log("venv and dependencies ready. Setting up API routes...");
-        app.post("/api/prompt", (req, res) => {
-            console.log("Received POST /api/prompt");
-            handlePrompt(req, res);
-        });
-
-        app.listen(PORT, () => {
-            console.log(`Server is running at http://localhost:${PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.error("Failed to initialize Python venv or dependencies:", err);
-        process.exit(1);
-    });

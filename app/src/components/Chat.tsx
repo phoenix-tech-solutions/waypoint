@@ -80,9 +80,27 @@ const ChatWithBirdie: React.FC = () => {
 
 			if (!response.ok) throw new Error("Network response was not ok");
 
-			const data = await response.json();
-			const botMessage: ChatMessage = { type: "bot", content: data.message };
+			const reader = response.body?.getReader();
+			let botContent = "";
+			const botMessage: ChatMessage = { type: "bot", content: "" };
 			setMessages((prev) => [...prev, botMessage]);
+
+			if (reader) {
+				while (true) {
+					const { done, value } = await reader.read();
+					if (done) break;
+					const chunk = new TextDecoder().decode(value);
+					botContent += chunk;
+					setMessages((prev) => {
+						const updated = [...prev];
+						const lastIdx = updated.length - 1;
+						if (updated[lastIdx]?.type === "bot") {
+							updated[lastIdx] = { ...updated[lastIdx], content: botContent };
+						}
+						return updated;
+					});
+				}
+			}
 		} catch (error) {
 			console.error("Error:", error);
 		} finally {

@@ -11,6 +11,10 @@
     "server": "npx tsx server/main.ts"
   },
   "dependencies": {
+    "@langchain/community": "^0.3.45",
+    "@langchain/google-genai": "^0.2.10",
+    "@langchain/mistralai": "^0.2.0",
+    "@langchain/textsplitters": "^0.1.0",
     "@radix-ui/react-dialog": "^1.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "@supabase/supabase-js": "^2.49.4",
@@ -21,9 +25,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "faiss-node": "^0.5.1",
     "framer-motion": "^12.6.3",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
+    "langchain": "^0.3.27",
     "lucide-react": "^0.487.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
