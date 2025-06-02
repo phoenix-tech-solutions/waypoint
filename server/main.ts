@@ -71,8 +71,8 @@ async function setupChain() {
   });
 
   const prompt = ChatPromptTemplate.fromTemplate(
-    "Answer the question based on the context:\n\n{context}\n\nQuestion: {input}",
-  );
+  "You are a helpful and informative assistant. Your primary goal is to answer the user's question accurately. First, critically evaluate the provided context. If the context directly answers the question, respond clearly and concisely *without* mentioning that you used external information. If the question is a common greeting or conversational query (e.g., 'hello', 'how are you?'), respond appropriately and politely. If the context is not relevant to the question, or if it's a general knowledge question, use your own comprehensive knowledge to formulate an answer. Only if you cannot find a suitable answer from the context or your own knowledge, politely inform the user that you are unable to answer the question at this time. Context:\n\n{context}\n\nQuestion: {input}",
+);
 
   const combineDocsChain = await createStuffDocumentsChain({
     llm,
