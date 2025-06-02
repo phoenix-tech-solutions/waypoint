@@ -92,13 +92,20 @@ async function main() {
 
   const app = express();
   app.use(bodyParser.json());
+  app.use((_, res, next) => {
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'none'; img-src 'self' https://waypoint-ia.onrender.com;",
+    );
+    next();
+  });
 
   // Add this endpoint to match the frontend proxy
   app.post("/api/prompt", (req, res) => {
     const { prompt } = req.body;
     if (!prompt) {
-        res.status(400).send("Missing prompt in request body.");
-        return;
+      res.status(400).send("Missing prompt in request body.");
+      return;
     }
     (async () => {
       try {
