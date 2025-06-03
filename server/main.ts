@@ -115,7 +115,7 @@ async function main() {
   app.use((_, res, next) => {
     res.setHeader(
       "Content-Security-Policy",
-      "default-src 'none'; img-src 'self' https://waypoint-ia.onrender.com;",
+      "default-src 'self'; img-src 'self' https://waypoint-ia.onrender.com;",
     );
     next();
   });
