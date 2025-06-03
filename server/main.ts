@@ -118,13 +118,13 @@ async function main() {
 
   const app = express();
   app.use(bodyParser.json());
-app.use((_, res, next) => {
-  res.setHeader(
-    "Content-Security-Policy",
-    "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://waypoint-ia.onrender.com; connect-src 'self' https://vjbdrsuksueppbxxebzp.supabase.co;"
-  );
-  next();
-});
+  app.use((_, res, next) => {
+    res.setHeader(
+      "Content-Security-Policy",
+      "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://waypoint-ia.onrender.com; connect-src 'self' https://vjbdrsuksueppbxxebzp.supabase.co;"
+    );
+    next();
+  });
 
   app.use(express.static(path.resolve(__dirname, "../app/dist")));
 
