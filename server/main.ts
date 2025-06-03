@@ -12,6 +12,12 @@ import { createRetrievalChain } from "langchain/chains/retrieval";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 dotenv.config();
 
 const faissIndexPath = path.resolve("server/faiss_index");
@@ -79,7 +85,7 @@ Your process:
 3.  Formulate a Direct Answer: If the available information directly and comprehensively answers the question, construct a clear and concise response. Do not indicate that you are drawing from external data; simply provide the answer as if it's your inherent knowledge.
 4.  Handle Conversational Queries: For common greetings or conversational remarks (e.g., 'hello', 'how are you?'), respond appropriately and politely, engaging naturally.
 5.  Utilize General Knowledge: If the available information does not address the question, or if it's a general knowledge query, draw upon your extensive understanding to formulate a helpful and accurate answer.
-6.  Address Unanswerable Questions: If, after consulting all available resources, you cannot find a suitable answer, say exactly "I DON'T KNOW".
+6.  Address Unanswerable Questions: If, after consulting all available resources, you cannot find a suitable answer, say exactly "I don't know.".
 
 Key Principles:
 
@@ -91,7 +97,7 @@ Key Principles:
 
 Context: {context}
 
-Question: {input}`,
+Question: {input}`
   );
 
   const combineDocsChain = await createStuffDocumentsChain({
@@ -112,13 +118,15 @@ async function main() {
 
   const app = express();
   app.use(bodyParser.json());
-  app.use((_, res, next) => {
-    res.setHeader(
-      "Content-Security-Policy",
-      "default-src 'self'; img-src 'self' https://waypoint-ia.onrender.com;",
-    );
-    next();
-  });
+app.use((_, res, next) => {
+  res.setHeader(
+    "Content-Security-Policy",
+    "default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' https://waypoint-ia.onrender.com; connect-src 'self' https://vjbdrsuksueppbxxebzp.supabase.co;"
+  );
+  next();
+});
+
+  app.use(express.static(path.resolve(__dirname, "../app/dist")));
 
   // Add this endpoint to match the frontend proxy
   app.post("/api/prompt", (req, res) => {
@@ -153,6 +161,10 @@ async function main() {
         }
       }
     })();
+  });
+
+  app.get(/(.*)/, (_, res) => {
+    res.sendFile(path.join(__dirname, "..", "app", "dist", "index.html"));
   });
 
   const port = process.env.PORT || 8000;

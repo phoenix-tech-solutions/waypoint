@@ -91,6 +91,7 @@ const ChatWithBirdie: React.FC = () => {
 					if (done) break;
 					const chunk = new TextDecoder().decode(value);
 					botContent += chunk;
+					console.log(chunk)
 					setMessages((prev) => {
 						const updated = [...prev];
 						const lastIdx = updated.length - 1;
