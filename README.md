@@ -13,7 +13,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 - **Smart Chat Interface** — Get real-time, context-aware answers through a friendly, responsive chat system.
 - **RAG-Powered Intelligence** — Our pipeline combines document parsing, semantic search, and LLMs to provide accurate, concise responses.
 - **Staff & Club Directory** — Quickly look up teachers, staff, or clubs with ease.
-- 🗓**Timeline View** — Visualize upcoming events and milestones in a scrollable, dynamic layout.
+- **Timeline View** — Visualize upcoming events and milestones in a scrollable, dynamic layout.
 - **User Accounts** — Personalized experience via secure account management, setting the stage for custom schedules, reminders, and more.
 
 ---
