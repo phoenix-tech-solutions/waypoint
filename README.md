@@ -8,19 +8,19 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 
 ---
 
-## ✨ Features
+## Features
 
-- 💬 **Smart Chat Interface** — Get real-time, context-aware answers through a friendly, responsive chat system.
-- 🧠 **RAG-Powered Intelligence** — Our pipeline combines document parsing, semantic search, and LLMs to provide accurate, concise responses.
-- 👥 **Staff & Club Directory** — Quickly look up teachers, staff, or clubs with ease.
-- 🗓️ **Timeline View** — Visualize upcoming events and milestones in a scrollable, dynamic layout.
-- 🔐 **User Accounts** — Personalized experience via secure account management, setting the stage for custom schedules, reminders, and more.
+- **Smart Chat Interface** — Get real-time, context-aware answers through a friendly, responsive chat system.
+- **RAG-Powered Intelligence** — Our pipeline combines document parsing, semantic search, and LLMs to provide accurate, concise responses.
+- **Staff & Club Directory** — Quickly look up teachers, staff, or clubs with ease.
+- 🗓**Timeline View** — Visualize upcoming events and milestones in a scrollable, dynamic layout.
+- **User Accounts** — Personalized experience via secure account management, setting the stage for custom schedules, reminders, and more.
 
 ---
 
-## 📅 Project Status
+## Project Status
 
-### 🖥 Frontend (React)
+### Frontend (React)
 
 | Feature         | Status         |
 |-----------------|----------------|
@@ -30,7 +30,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 | Settings page   | ⏳ In Progress |
 | Accounts        | ✅ Done (for now) |
 
-### 🧠 Backend (Python + RAG)
+### Backend (Python + RAG)
 
 | Feature                 | Status         |
 |-------------------------|----------------|
@@ -39,14 +39,14 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 | Answer generation       | ✅ Done         |
 | Query fine-tuning       | ⏳ In Progress |
 
-### 🧪 Testing
+### Testing
 
 | Feature         | Status          |
 |-----------------|-----------------|
 | Accounts system | ⏳ Pending       |
 | End-to-end UX   | 🔜 To be defined |
 
-### ☁️ Deployment
+### ☁Deployment
 
 | Environment        | Status         |
 |--------------------|----------------|
@@ -56,7 +56,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Frontend**: React + TailwindCSS
 - **Backend**: Node.js, Express, FAISS
@@ -66,7 +66,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 
 This project was developed by students at Innovation Academy. If you're interested in contributing or want to collaborate, feel free to open an issue or reach out!
