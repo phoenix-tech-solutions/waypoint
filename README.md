@@ -46,7 +46,7 @@ Waypoint is a project designed to enhance navigation and accessibility within th
 | Accounts system | ⏳ Pending       |
 | End-to-end UX   | 🔜 To be defined |
 
-### ☁Deployment
+### Deployment
 
 | Environment        | Status         |
 |--------------------|----------------|
