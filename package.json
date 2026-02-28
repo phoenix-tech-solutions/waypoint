@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite & npx tsx server/main.ts",
+    "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -29,6 +29,7 @@
     "express": "^5.1.0",
     "framer-motion": "^12.6.3",
     "html2canvas": "^1.4.1",
+    "install": "^0.13.0",
     "jspdf": "^3.0.2",
     "langchain": "^0.3.0",
     "lucide-react": "^0.487.0",

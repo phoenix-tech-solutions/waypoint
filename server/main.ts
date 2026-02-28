@@ -367,9 +367,7 @@ async function main() {
     next();
   });
 
-  app.use(express.static(path.resolve(__dirname, "../app/dist")));
-
-  // Add this endpoint to match the frontend proxy
+  // API route must be registered before static so POST /api/prompt is handled
   app.post("/api/prompt", async (req, res) => {
     const { prompt } = req.body;
     if (!prompt) {
@@ -422,6 +420,8 @@ async function main() {
       res.status(500).json({ error: errorMessage });
     }
   });
+
+  app.use(express.static(path.resolve(__dirname, "../app/dist")));
 
   app.get(/(.*)/, (_, res) => {
     res.sendFile(path.join(__dirname, "..", "app", "dist", "index.html"));
