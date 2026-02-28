@@ -5,6 +5,15 @@ import { Button } from "./ui/button.tsx";
 import jsPDF from "jspdf";
 import toast, { Toaster } from "react-hot-toast";
 
+type SpeechRecognitionLike = {
+	lang: string;
+	interimResults: boolean;
+	onresult: ((event: any) => void) | null;
+	onend: (() => void) | null;
+	start: () => void;
+	stop: () => void;
+};
+
 const ChatWithBirdie: React.FC = () => {
 	const [inputValue, setInputValue] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +21,7 @@ const ChatWithBirdie: React.FC = () => {
 	const [isListening, setIsListening] = useState(false);
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const messageEndRef = useRef<HTMLDivElement>(null);
-	const recognitionRef = useRef<SpeechRecognition | null>(null);
+	const recognitionRef = useRef<SpeechRecognitionLike | null>(null);
 	const converter = new showdown.Converter();
 
 	interface ChatMessage {
@@ -21,15 +30,16 @@ const ChatWithBirdie: React.FC = () => {
 	}
 
 	useEffect(() => {
-		if ("SpeechRecognition" in window || "webkitSpeechRecognition" in window) {
+		const w = window as any;
+		if ("SpeechRecognition" in w || "webkitSpeechRecognition" in w) {
 			const SpeechRecognition =
-				window.SpeechRecognition || window.webkitSpeechRecognition;
-			const recognition = new SpeechRecognition();
+				w.SpeechRecognition || w.webkitSpeechRecognition;
+			const recognition: SpeechRecognitionLike = new SpeechRecognition();
 			recognition.lang = "en-US";
 			recognition.interimResults = false;
 			recognitionRef.current = recognition;
 
-			recognition.onresult = (event) => {
+			recognition.onresult = (event: any) => {
 				const transcript = event.results[0][0].transcript;
 				setInputValue((prev) => prev + transcript);
 			};
@@ -67,42 +77,57 @@ const ChatWithBirdie: React.FC = () => {
 		if (!inputValue.trim()) return;
 
 		const userMessage: ChatMessage = { type: "user", content: inputValue };
+		const promptText = inputValue;
 		setInputValue("");
 		setMessages((prev) => [...prev, userMessage]);
 		setIsLoading(true);
 
 		try {
+			const controller = new AbortController();
+			const timeoutId = window.setTimeout(() => controller.abort(), 60000);
 			const response = await fetch("/api/prompt", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ prompt: inputValue }),
+				body: JSON.stringify({ prompt: promptText }),
+				signal: controller.signal,
 			});
+			window.clearTimeout(timeoutId);
 
-			if (!response.ok) throw new Error("Network response was not ok");
-
-			const reader = response.body?.getReader();
-			let botContent = "";
-			const botMessage: ChatMessage = { type: "bot", content: "" };
-			setMessages((prev) => [...prev, botMessage]);
-
-			if (reader) {
-				while (true) {
-					const { done, value } = await reader.read();
-					if (done) break;
-					const chunk = new TextDecoder().decode(value);
-					botContent += chunk;
-					setMessages((prev) => {
-						const updated = [...prev];
-						const lastIdx = updated.length - 1;
-						if (updated[lastIdx]?.type === "bot") {
-							updated[lastIdx] = { ...updated[lastIdx], content: botContent };
-						}
-						return updated;
-					});
+			if (!response.ok) {
+				let errText = `Request failed (${response.status})`;
+				const contentType = response.headers.get("content-type") || "";
+				if (contentType.includes("application/json")) {
+					try {
+						const data = await response.json();
+						if (data?.error) errText = data.error;
+					} catch {
+						// ignore
+					}
+				} else {
+					try {
+						const text = await response.text();
+						if (text) errText = text;
+					} catch {
+						// ignore
+					}
 				}
+				throw new Error(errText);
 			}
+
+			const data = (await response.json()) as { answer?: string };
+			const answerText = data?.answer ?? "";
+			setMessages((prev) => [...prev, { type: "bot", content: answerText }]);
 		} catch (error) {
 			console.error("Error:", error);
+			const message = error instanceof Error ? error.message : "Request failed";
+			setMessages((prev) => {
+				const updated = [...prev];
+				if (updated[updated.length - 1]?.type === "bot") {
+					updated[updated.length - 1] = { type: "bot", content: message };
+					return updated;
+				}
+				return [...updated, { type: "bot", content: message }];
+			});
 		} finally {
 			setIsLoading(false);
 		}
